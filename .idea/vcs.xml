@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Api-Gateway" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/AuthService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ConfigurationService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/DiscoveryService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GraduationService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SA-CRMS-ConfigServer" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/ScheduleService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/StudentService" vcs="Git" />
+  </component>
+</project>

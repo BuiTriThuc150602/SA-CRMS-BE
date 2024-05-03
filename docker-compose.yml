@@ -1,0 +1,136 @@
+services:
+  zipkin:
+    image: ghcr.io/openzipkin/zipkin-slim:${TAG:-latest}
+    container_name: zipkin
+    ports:
+      - "9411:9411"
+    environment:
+      - STORAGE_TYPE = mem
+    restart: always
+    networks:
+      - gateway
+
+
+  config-server:
+    build:
+      context: ConfigurationService
+      dockerfile: Dockerfile
+    container_name: config-server
+    image: config-server:1.0
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    restart: always
+
+  discovery-server:
+    build:
+      context: DiscoveryService
+      dockerfile: Dockerfile
+    container_name: discovery-server
+    image: discovery-server:1.0
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - zipkin
+      - config-server
+    networks:
+      - gateway
+
+  api_gateway:
+    build:
+      context: Api-Gateway
+      dockerfile: Dockerfile
+    container_name: api_gateway
+    image: api_gateway:1.0
+    ports:
+      - "8000:8000"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - discovery-server
+      - config-server
+      - zipkin
+    networks:
+      - gateway
+
+
+  # ================================== MariaDB & AuthService ==================================
+  mariadb-AuthService:
+    image: mariadb:latest
+    container_name: mariadb-AuthService
+    ports:
+      - "3307:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    env_file:
+      - .env
+    volumes:
+      - mariadb:/var/lib/mysql
+    networks:
+      - mariadb-network
+    restart: always
+
+  AuthenticateService:
+    build:
+      context: AuthService
+      dockerfile: Dockerfile
+    container_name: Authenticate_Service
+    image: authenticate-service:1.0
+    ports:
+      - "8002:8002"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - mariadb-AuthService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - mariadb-network
+      - gateway
+
+  StudentService:
+    build:
+      context: StudentService
+      dockerfile: Dockerfile
+    container_name: StudentService
+    image: student-service:1.0
+    ports:
+      - "8001:8001"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    env_file:
+      - .env
+    restart: always
+    depends_on:
+      - mariadb-AuthService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - mariadb-network
+      - gateway
+
+volumes:
+  mariadb:
+networks:
+  mariadb-network:
+  gateway:
+
+
+

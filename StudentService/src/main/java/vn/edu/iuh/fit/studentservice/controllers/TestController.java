@@ -13,7 +13,7 @@ import vn.edu.iuh.fit.studentservice.models.Student;
  * This is a test controller to test the API
  * */
 @RestController
-@RequestMapping("/api/v1/students")
+@RequestMapping("/students")
 public class TestController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);

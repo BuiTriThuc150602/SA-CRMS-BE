@@ -10,6 +10,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
@@ -52,7 +53,7 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
         return exchange.getResponse().writeWith(Flux.just(dataBuffer));
       }
       return webClient.get()
-          .uri("http://AUTHENTICATESERVICE/api/v1/auth/get-claims")
+          .uri("http://AUTHENTICATESERVICE/auth/get-claims")
           .headers(httpHeaders -> httpHeaders.addAll(headers))
           .retrieve()
           .bodyToMono(Map.class)

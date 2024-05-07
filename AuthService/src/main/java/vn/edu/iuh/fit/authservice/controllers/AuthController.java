@@ -29,7 +29,7 @@ import vn.edu.iuh.fit.authservice.services.AuthService;
 import vn.edu.iuh.fit.authservice.services.JWTService;
 
 @RestController
-@RequestMapping("api/v1/auth")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthController {
 

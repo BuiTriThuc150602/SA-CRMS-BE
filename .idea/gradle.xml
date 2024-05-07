@@ -25,11 +25,31 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ClassService" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ClassService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/ConfigurationService" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/ConfigurationService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/CourseService" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/CourseService" />
           </set>
         </option>
       </GradleProjectSettings>
@@ -45,11 +65,31 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/EnrollmentService" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/EnrollmentService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/GraduationService" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/GraduationService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/LearningResultService" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/LearningResultService" />
           </set>
         </option>
       </GradleProjectSettings>

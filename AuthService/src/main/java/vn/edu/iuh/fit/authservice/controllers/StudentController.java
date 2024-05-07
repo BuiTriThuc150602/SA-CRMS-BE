@@ -14,7 +14,7 @@ import vn.edu.iuh.fit.authservice.models.Student;
 import vn.edu.iuh.fit.authservice.services.StudentService;
 
 @RestController
-@RequestMapping("/api/v1/auth/students")
+@RequestMapping("/auth/students")
 @Slf4j
 public class StudentController {
 

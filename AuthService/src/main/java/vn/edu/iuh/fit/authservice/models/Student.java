@@ -15,28 +15,22 @@ import vn.edu.iuh.fit.authservice.enums.StudentStatus;
 @AllArgsConstructor @NoArgsConstructor
 @Entity
 public class Student extends UserCredential {
-
   @NonNull
   @Column(name = "place_of_birth")
   private String placeOfBirth;
-
   @NonNull
   @Column(name = "date_of_birth")
   private LocalDate dateOfBirth;
   @NonNull
   @Column(name = "gender")
   private Boolean gender;
-
   @NonNull
   @Column(name = "avatar")
   private String avatar;
-
   @NonNull
   private String phone;
-
   @NonNull
   private String address;
-
   @NonNull
   @Column(name = "status")
   private StudentStatus status;

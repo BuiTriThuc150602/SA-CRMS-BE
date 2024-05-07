@@ -19,8 +19,6 @@ services:
     image: config-server:1.0
     ports:
       - "8888:8888"
-    env_file:
-      - .env
     restart: always
 
   discovery-server:
@@ -31,10 +29,6 @@ services:
     image: discovery-server:1.0
     ports:
       - "8761:8761"
-    environment:
-      - SPRING_PROFILES_ACTIVE=prod
-    env_file:
-      - .env
     restart: always
     depends_on:
       - zipkin
@@ -53,7 +47,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     env_file:
-      - .env
+      - environments/apigateway.env
     restart: always
     depends_on:
       - discovery-server
@@ -63,7 +57,7 @@ services:
       - gateway
 
 
-  # ================================== MariaDB & AuthService ==================================
+  # ================================== Authenticate-DB & AuthService ==================================
   mariadb-AuthService:
     image: mariadb:latest
     container_name: mariadb-AuthService
@@ -72,12 +66,10 @@ services:
     environment:
       - MARIADB_ROOT_PASSWORD=root
       - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    env_file:
-      - .env
     volumes:
-      - mariadb:/var/lib/mysql
+      - authenticate-db:/var/lib/mysql
     networks:
-      - mariadb-network
+      - authenticate-db-network
     restart: always
 
   AuthenticateService:
@@ -87,11 +79,11 @@ services:
     container_name: Authenticate_Service
     image: authenticate-service:1.0
     ports:
-      - "8002:8002"
+      - "8010:8010"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     env_file:
-      - .env
+      - environments/authenticate.env
     restart: always
     depends_on:
       - mariadb-AuthService
@@ -100,8 +92,23 @@ services:
       - discovery-server
       - api_gateway
     networks:
-      - mariadb-network
+      - authenticate-db-network
       - gateway
+
+    # ================================== Student-DB & StudentService ==================================
+  mariadb-StudentService:
+    image: mariadb:latest
+    container_name: mariadb-StudentService
+    ports:
+      - "3308:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - student-db:/var/lib/mysql
+    networks:
+      - student-db-network
+    restart: always
 
   StudentService:
     build:
@@ -110,11 +117,240 @@ services:
     container_name: StudentService
     image: student-service:1.0
     ports:
-      - "8001:8001"
+      - "8020:8020"
     environment:
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=prod
     env_file:
-      - .env
+      - environments/student.env
+    restart: always
+    depends_on:
+      - mariadb-StudentService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - student-db-network
+      - gateway
+
+    # ================================== Class-DB & ClassService ==================================
+  mariadb-ClassService:
+    image: mariadb:latest
+    container_name: mariadb-ClassService
+    ports:
+      - "3309:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=0986045812a
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - class-db:/var/lib/mysql
+    networks:
+      - class-db-network
+    restart: always
+
+  ClassService:
+    build:
+      context: ClassService
+      dockerfile: Dockerfile
+    container_name: ClassService
+    image: class-service:1.0
+    ports:
+      - "8030:8030"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/class.env
+    restart: always
+    depends_on:
+      - mariadb-ClassService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - class-db-network
+      - gateway
+
+    # ================================== Course-DB & CourseService ==================================
+  mariadb-CourseService:
+    image: mariadb:latest
+    container_name: mariadb-CourseService
+    ports:
+      - "3310:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - course-db:/var/lib/mysql
+    networks:
+      - course-db-network
+    restart: always
+
+  CourseService:
+    build:
+      context: CourseService
+      dockerfile: Dockerfile
+    container_name: CourseService
+    image: course-service:1.0
+    ports:
+      - "8040:8040"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/course.env
+    restart: always
+    depends_on:
+      - mariadb-CourseService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - course-db-network
+      - gateway
+
+    # ================================== Enrollment-DB & EnrollmentService ==================================
+  mariadb-EnrollmentService:
+    image: mariadb:latest
+    container_name: mariadb-EnrollmentService
+    ports:
+      - "3311:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - enrollment-db:/var/lib/mysql
+    networks:
+      - enrollment-db-network
+    restart: always
+
+  EnrollmentService:
+    build:
+      context: EnrollmentService
+      dockerfile: Dockerfile
+    container_name: EnrollmentService
+    image: enrollment-service:1.0
+    ports:
+      - "8050:8050"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/enrollment.env
+    restart: always
+    depends_on:
+      - mariadb-EnrollmentService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - enrollment-db-network
+      - gateway
+
+    # ================================== Graduation-DB & GraduationService ==================================
+
+  mariadb-GraduationService:
+    image: mariadb:latest
+    container_name: mariadb-GraduationService
+    ports:
+      - "3312:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - graduation-db:/var/lib/mysql
+    networks:
+      - graduation-db-network
+    restart: always
+
+  GraduationService:
+    build:
+      context: GraduationService
+      dockerfile: Dockerfile
+    container_name: GraduationService
+    image: graduation-service:1.0
+    ports:
+      - "8060:8060"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/graduation.env
+    restart: always
+    depends_on:
+      - mariadb-GraduationService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - graduation-db-network
+      - gateway
+
+    # ================================== LearningResult-DB & LearningResultService ==================================
+  mariadb-LearningResultService:
+    image: mariadb:latest
+    container_name: mariadb-LearningResultService
+    ports:
+      - "3313:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - learningResult-db:/var/lib/mysql
+    networks:
+      - learningResult-db-network
+    restart: always
+
+  LearningResultService:
+    build:
+      context: LearningResultService
+      dockerfile: Dockerfile
+    container_name: LearningResultService
+    image: learningresult-service:1.0
+    ports:
+      - "8070:8070"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/learningresult.env
+    restart: always
+    depends_on:
+      - mariadb-LearningResultService
+      - zipkin
+      - config-server
+      - discovery-server
+      - api_gateway
+    networks:
+      - learningResult-db-network
+      - gateway
+
+    # ================================== Schedule-DB & ScheduleService ==================================
+  mariadb-ScheduleService:
+    image: mariadb:latest
+    container_name: mariadb-ScheduleService
+    ports:
+      - "3314:3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
+    volumes:
+      - schedule-db:/var/lib/mysql
+    networks:
+      - schedule-db-network
+    restart: always
+
+  ScheduleService:
+    build:
+      context: ScheduleService
+      dockerfile: Dockerfile
+    container_name: ScheduleService
+    image: schedule-service:1.0
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    env_file:
+      - environments/schedule.env
     restart: always
     depends_on:
       - mariadb-AuthService
@@ -123,14 +359,33 @@ services:
       - discovery-server
       - api_gateway
     networks:
-      - mariadb-network
+      - schedule-db-network
       - gateway
 
+
+
 volumes:
-  mariadb:
+  authenticate-db:
+  student-db:
+  class-db:
+  course-db:
+  enrollment-db:
+  graduation-db:
+  learningResult-db:
+  schedule-db:
+
+
 networks:
-  mariadb-network:
   gateway:
+  authenticate-db-network:
+  student-db-network:
+  class-db-network:
+  course-db-network:
+  enrollment-db-network:
+  graduation-db-network:
+  learningResult-db-network:
+  schedule-db-network:
+
 
 
 

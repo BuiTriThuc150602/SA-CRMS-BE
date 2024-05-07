@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.authservice.config;
 
 import javax.crypto.spec.SecretKeySpec;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@Slf4j
 public class AuthConfig {
 
   @Value("${jwt.secret}")
@@ -40,7 +42,7 @@ public class AuthConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
+    log.info("Configuring security filter chain : " + http.toString());
     http
         .csrf(
             csrf -> csrf.disable()
@@ -50,7 +52,7 @@ public class AuthConfig {
         )
         .authorizeHttpRequests(
             authorizeRequests -> authorizeRequests
-                .requestMatchers("/api/v1/auth/login", "/api/v1/auth/register")
+                .requestMatchers("/auth/login", "/auth/register")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

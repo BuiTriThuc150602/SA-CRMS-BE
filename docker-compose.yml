@@ -58,19 +58,6 @@ services:
 
 
   # ================================== Authenticate-DB & AuthService ==================================
-  mariadb-AuthService:
-    image: mariadb:latest
-    container_name: mariadb-AuthService
-    ports:
-      - "3307:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - authenticate-db:/var/lib/mysql
-    networks:
-      - authenticate-db-network
-    restart: always
 
   AuthenticateService:
     build:
@@ -86,29 +73,14 @@ services:
       - environments/authenticate.env
     restart: always
     depends_on:
-      - mariadb-AuthService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - authenticate-db-network
       - gateway
 
     # ================================== Student-DB & StudentService ==================================
-  mariadb-StudentService:
-    image: mariadb:latest
-    container_name: mariadb-StudentService
-    ports:
-      - "3308:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - student-db:/var/lib/mysql
-    networks:
-      - student-db-network
-    restart: always
 
   StudentService:
     build:
@@ -124,29 +96,14 @@ services:
       - environments/student.env
     restart: always
     depends_on:
-      - mariadb-StudentService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - student-db-network
       - gateway
 
     # ================================== Class-DB & ClassService ==================================
-  mariadb-ClassService:
-    image: mariadb:latest
-    container_name: mariadb-ClassService
-    ports:
-      - "3309:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=0986045812a
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - class-db:/var/lib/mysql
-    networks:
-      - class-db-network
-    restart: always
 
   ClassService:
     build:
@@ -162,29 +119,14 @@ services:
       - environments/class.env
     restart: always
     depends_on:
-      - mariadb-ClassService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - class-db-network
       - gateway
 
     # ================================== Course-DB & CourseService ==================================
-  mariadb-CourseService:
-    image: mariadb:latest
-    container_name: mariadb-CourseService
-    ports:
-      - "3310:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - course-db:/var/lib/mysql
-    networks:
-      - course-db-network
-    restart: always
 
   CourseService:
     build:
@@ -200,29 +142,14 @@ services:
       - environments/course.env
     restart: always
     depends_on:
-      - mariadb-CourseService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - course-db-network
       - gateway
 
     # ================================== Enrollment-DB & EnrollmentService ==================================
-  mariadb-EnrollmentService:
-    image: mariadb:latest
-    container_name: mariadb-EnrollmentService
-    ports:
-      - "3311:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - enrollment-db:/var/lib/mysql
-    networks:
-      - enrollment-db-network
-    restart: always
 
   EnrollmentService:
     build:
@@ -238,30 +165,14 @@ services:
       - environments/enrollment.env
     restart: always
     depends_on:
-      - mariadb-EnrollmentService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - enrollment-db-network
       - gateway
 
     # ================================== Graduation-DB & GraduationService ==================================
-
-  mariadb-GraduationService:
-    image: mariadb:latest
-    container_name: mariadb-GraduationService
-    ports:
-      - "3312:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - graduation-db:/var/lib/mysql
-    networks:
-      - graduation-db-network
-    restart: always
 
   GraduationService:
     build:
@@ -277,29 +188,14 @@ services:
       - environments/graduation.env
     restart: always
     depends_on:
-      - mariadb-GraduationService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - graduation-db-network
       - gateway
 
     # ================================== LearningResult-DB & LearningResultService ==================================
-  mariadb-LearningResultService:
-    image: mariadb:latest
-    container_name: mariadb-LearningResultService
-    ports:
-      - "3313:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - learningResult-db:/var/lib/mysql
-    networks:
-      - learningResult-db-network
-    restart: always
 
   LearningResultService:
     build:
@@ -315,29 +211,14 @@ services:
       - environments/learningresult.env
     restart: always
     depends_on:
-      - mariadb-LearningResultService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - learningResult-db-network
       - gateway
 
     # ================================== Schedule-DB & ScheduleService ==================================
-  mariadb-ScheduleService:
-    image: mariadb:latest
-    container_name: mariadb-ScheduleService
-    ports:
-      - "3314:3306"
-    environment:
-      - MARIADB_ROOT_PASSWORD=root
-      - MARIADB_ROOT_PASSWORD_ALLOW_EMPTY=true
-    volumes:
-      - schedule-db:/var/lib/mysql
-    networks:
-      - schedule-db-network
-    restart: always
 
   ScheduleService:
     build:
@@ -353,38 +234,15 @@ services:
       - environments/schedule.env
     restart: always
     depends_on:
-      - mariadb-AuthService
       - zipkin
       - config-server
       - discovery-server
       - api_gateway
     networks:
-      - schedule-db-network
       - gateway
-
-
-
-volumes:
-  authenticate-db:
-  student-db:
-  class-db:
-  course-db:
-  enrollment-db:
-  graduation-db:
-  learningResult-db:
-  schedule-db:
-
 
 networks:
   gateway:
-  authenticate-db-network:
-  student-db-network:
-  class-db-network:
-  course-db-network:
-  enrollment-db-network:
-  graduation-db-network:
-  learningResult-db-network:
-  schedule-db-network:
 
 
 

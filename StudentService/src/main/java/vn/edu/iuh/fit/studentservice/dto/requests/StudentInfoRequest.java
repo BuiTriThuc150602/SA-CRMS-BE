@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.dto;
+package vn.edu.iuh.fit.studentservice.dto.requests;
 
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

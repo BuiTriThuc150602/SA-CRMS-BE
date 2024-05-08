@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.iuh.fit.studentservice.models.Student;
+import vn.edu.iuh.fit.studentservice.repositories.StudentRepository;
 
 /*
  * This is a test controller to test the API
@@ -16,16 +18,15 @@ import vn.edu.iuh.fit.studentservice.models.Student;
 @RequestMapping("/students")
 public class TestController {
 
+  @Autowired
+  private StudentRepository studentRepository;
+
   private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
   @RequestMapping("/test")
-  public ResponseEntity<List<Student>> hello() {
+  public ResponseEntity<?> testApi() {
     LOGGER.info("Test API");
-    List<Student> students = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
-      Student student = new Student(i, "Nguyen Van " + i, "email" + i + "@gmail.com");
-      students.add(student);
-    }
+    var students = studentRepository.findAll();
     return ResponseEntity.ok(students);
   }
 

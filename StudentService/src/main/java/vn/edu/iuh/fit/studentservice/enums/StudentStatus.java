@@ -1,8 +1,6 @@
-package vn.edu.iuh.fit.authservice.enums;
+package vn.edu.iuh.fit.studentservice.enums;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public enum StudentStatus {

@@ -1,14 +1,13 @@
-package vn.edu.iuh.fit.authservice.ids;
+package vn.edu.iuh.fit.authservice.dto.requests;
 
-import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class UserRoleIDClass implements Serializable {
-  private Long role;
-  private String user;
+public class AuthRequestMapping {
+  private String id;
+  private String password;
 
 }

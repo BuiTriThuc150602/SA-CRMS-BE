@@ -1,25 +1,28 @@
 package vn.edu.iuh.fit.authservice.services;
 
+import com.nimbusds.jose.JOSEException;
+import com.nimbusds.jose.JWSAlgorithm;
+import com.nimbusds.jose.JWSHeader;
+import com.nimbusds.jose.JWSObject;
+import com.nimbusds.jose.JWSVerifier;
+import com.nimbusds.jose.Payload;
+import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
-import java.security.Key;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.util.StringJoiner;
 import javax.crypto.SecretKey;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import vn.edu.iuh.fit.authservice.models.Role;
+import org.springframework.util.CollectionUtils;
 import vn.edu.iuh.fit.authservice.models.UserCredential;
-import vn.edu.iuh.fit.authservice.models.User_Role;
 
 @Service
 @Slf4j
@@ -33,55 +36,48 @@ public class JWTService {
   private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
 
 
-  public boolean validateToken(String token) {
-    try {
-      Jwts.parser().verifyWith(getSignKey()).build().parseSignedClaims(token);
-
-      return true;
-    } catch (
-        UnsupportedJwtException e) {
-      log.error("Invalid JWT token: {}", e.getMessage());
-    } catch (JwtException e) {
-      log.error("JWT token is expired or invalid: {}", e.getMessage());
-    } catch (IllegalArgumentException e) {
-      log.error("JWT claims string is empty: {}", e.getMessage());
+  public SignedJWT validateToken(String token) throws JOSEException, ParseException {
+    JWSVerifier verifier = new MACVerifier(SECRET.getBytes());
+    SignedJWT signedJWT = SignedJWT.parse(token);
+    Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+    if (expirationTime.before(new Date())) {
+      throw new RuntimeException("Token is expired");
     }
-    return false;
+    if (!signedJWT.verify(verifier)) {
+      throw new RuntimeException("Token is invalid");
+    }
+    return signedJWT;
+
   }
 
-  public String generateToken(UserCredential userCredential, List<User_Role> roles) {
-    List<String> roles_name = roles.stream().map(User_Role::getRole).map(Role::getName)
-        .toList();
-    Map<String, Object> claims = Map.of("userId", userCredential.getId(), "username",
-        userCredential.getName(), "roles", roles_name);
-    return createToken(claims);
-  }
+  public String generateToken(UserCredential userCredential) {
+    JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
+    JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+        .subject(userCredential.getName())
+        .claim(("roles"), buildScope(userCredential))
+        .issuer("auth-service")
+        .issueTime(new Date())
+        .expirationTime(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+        .build();
 
-  public Claims getClaims(String token) {
+    Payload payload = new Payload(claimsSet.toJSONObject());
+    JWSObject jwsObject = new JWSObject(header, payload);
+
     try {
-      return Jwts.parser().verifyWith(getSignKey()).build().parseSignedClaims(token).getPayload();
-    } catch (Exception e) {
-      log.error("Error when get claims from token: {}", e.getMessage());
+      jwsObject.sign(new MACSigner(SECRET.getBytes()));
+      return jwsObject.serialize();
+    } catch (JOSEException e) {
+      log.error("Cannot create token", e);
       throw new RuntimeException(e);
     }
   }
 
-  private String createToken(Map<String, Object> claims) {
-    try {
-      return Jwts.builder()
-          .claims(claims)
-          .issuedAt(new Date(System.currentTimeMillis()))
-          .expiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-          .signWith(getSignKey(), SignatureAlgorithm.HS256)
-          .compact();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
+  private String buildScope(UserCredential user) {
+    StringJoiner joiner = new StringJoiner(",");
+    if (!CollectionUtils.isEmpty(user.getRoles())) {
+      user.getRoles().forEach(role -> joiner.add(role.getName()));
     }
-  }
-
-  private SecretKey getSignKey() {
-    byte[] keyBytes = SECRET.getBytes();
-    return Keys.hmacShaKeyFor(keyBytes);
+    return joiner.toString();
   }
 
 }

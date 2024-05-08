@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.dto;
+package vn.edu.iuh.fit.authservice.dto.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

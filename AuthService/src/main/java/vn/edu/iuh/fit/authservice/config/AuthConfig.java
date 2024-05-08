@@ -60,7 +60,7 @@ public class AuthConfig {
         .oauth2ResourceServer(
             oauth2ResourceServer -> oauth2ResourceServer.jwt(
                 Customizer.withDefaults()
-            )
+            ).authenticationEntryPoint(new JwtAuthenticationEntryPoint())
         )
         .sessionManagement(
             session -> session

@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.services;
+package vn.edu.iuh.fit.studentservice.services;
 
 import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.ErrorResponseException;
-import vn.edu.iuh.fit.authservice.dto.StudentInfoRequest;
-import vn.edu.iuh.fit.authservice.enums.StudentStatus;
-import vn.edu.iuh.fit.authservice.models.Student;
-import vn.edu.iuh.fit.authservice.repositories.StudentRepository;
+import vn.edu.iuh.fit.studentservice.dto.requests.StudentInfoRequest;
+import vn.edu.iuh.fit.studentservice.enums.StudentStatus;
+import vn.edu.iuh.fit.studentservice.models.Student;
+import vn.edu.iuh.fit.studentservice.repositories.StudentRepository;
 
 @Service
 @Slf4j
@@ -18,14 +18,8 @@ public class StudentService {
 
   @Autowired
   private StudentRepository studentRepository;
-  @Autowired
-  private JWTService jwtService;
 
-  public Student getStudentByToken(String token) {
-    var claims = jwtService.getClaims(token);
-    log.info("Claims: {}", claims);
-    var id = claims.get("userId").toString();
-
+  public Student getStudentByToken(String id) {
     return studentRepository.findById(id).orElse(null);
   }
 

@@ -10,6 +10,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,8 @@ public class UserCredential {
   private String password;
   @Column(name = "user_active")
   private boolean active;
+  @ManyToMany
+  private Set<Role> roles;
 
 
 

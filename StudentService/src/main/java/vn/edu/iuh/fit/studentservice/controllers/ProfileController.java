@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.controllers;
+package vn.edu.iuh.fit.studentservice.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import vn.edu.iuh.fit.authservice.dto.StudentInfoRequest;
-import vn.edu.iuh.fit.authservice.models.Student;
-import vn.edu.iuh.fit.authservice.services.StudentService;
+import vn.edu.iuh.fit.studentservice.dto.requests.StudentInfoRequest;
+import vn.edu.iuh.fit.studentservice.models.Student;
+import vn.edu.iuh.fit.studentservice.services.StudentService;
 
 @RestController
-@RequestMapping("/auth/students")
+@RequestMapping("/students")
 @Slf4j
-public class StudentController {
+public class ProfileController {
 
   @Autowired
   private StudentService studentService;

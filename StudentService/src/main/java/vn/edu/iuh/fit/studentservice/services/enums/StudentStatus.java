@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.studentservice.enums;
+package vn.edu.iuh.fit.studentservice.services.enums;
 
 import lombok.Getter;
 

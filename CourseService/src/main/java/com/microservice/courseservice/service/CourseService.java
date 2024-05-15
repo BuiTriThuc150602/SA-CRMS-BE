@@ -11,14 +11,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-    @Service
-    @Slf4j
+@Service
+@Slf4j
 public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
     public void addCourse(CourseRequest courseRequest) {
         Course course = new Course();
+        course.setId(courseRequest.getId());
         course.setName(courseRequest.getName());
         course.setCredit(courseRequest.getCredit());
         course.setPrerequisiteIds(courseRequest.getPrerequisiteIds());
@@ -41,5 +42,18 @@ public class CourseService {
             return courseResponse;
         }).collect(Collectors.toList());
         return courseResponses;
+    }
+
+    public CourseResponse getCoursesById(String courseId) {
+        Course course = courseRepository.findCourseById(courseId).get();
+        CourseResponse courseResponse = new CourseResponse();
+        courseResponse.setId(course.getId());
+        courseResponse.setName(course.getName());
+        courseResponse.setCredit(course.getCredit());
+
+        List<Long> prerequisiteCourseIds = course.getPrerequisiteIds();
+        courseResponse.setPrerequisiteCourseIds(prerequisiteCourseIds);
+        return courseResponse;
+
     }
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.ErrorResponseException;
 import vn.edu.iuh.fit.studentservice.dto.requests.StudentInfoRequest;
-import vn.edu.iuh.fit.studentservice.enums.StudentStatus;
+import vn.edu.iuh.fit.studentservice.services.enums.StudentStatus;
 import vn.edu.iuh.fit.studentservice.models.Student;
 import vn.edu.iuh.fit.studentservice.repositories.StudentRepository;
 

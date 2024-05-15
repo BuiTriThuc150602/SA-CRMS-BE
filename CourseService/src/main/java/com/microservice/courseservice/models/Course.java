@@ -14,9 +14,8 @@ import java.util.List;
 @ToString
 public class Course {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "course_id", nullable = false)
-    private long id;
+    private String id;
     @Column(name = "course_name", nullable = false)
     private String name;
     private int credit;

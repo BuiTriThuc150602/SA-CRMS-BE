@@ -15,27 +15,57 @@ public class EnrollmentClassService {
     @Autowired
     private EnrollmentClassRepository enrollmentClassRepository;
 
-    public void createEnrollmentClass(EnrollmentClassRequest enrollmentClassRequest){
+    public void createEnrollmentClass(EnrollmentClassRequest enrollmentClassRequest) {
         EnrollmentClass enrollmentClass = new EnrollmentClass();
+        enrollmentClass.setId(enrollmentClassRequest.getId());
+        enrollmentClass.setCourseId(enrollmentClassRequest.getCourseId());
         enrollmentClass.setClassName(enrollmentClassRequest.getClassName());
-        enrollmentClass.setInstructorId(enrollmentClassRequest.getInstructorId());
         enrollmentClass.setCurrentStudents(enrollmentClassRequest.getCurrentStudents());
         enrollmentClass.setMaxStudent(enrollmentClassRequest.getMaxStudent());
+        enrollmentClass.setStatusEnrollClass(enrollmentClassRequest.getStatusEnrollClass());
         enrollmentClassRepository.save(enrollmentClass);
     }
 
-    public List<EnrollmentClassResponse> getAll(){
+    public List<EnrollmentClassResponse> getAll() {
         List<EnrollmentClass> enrollmentClassList = enrollmentClassRepository.findAll();
 
         List<EnrollmentClassResponse> enrollmentClassResponses = enrollmentClassList.stream().map(enrollmentClass -> {
             EnrollmentClassResponse enrollmentClassResponse = new EnrollmentClassResponse();
             enrollmentClassResponse.setId(enrollmentClass.getId());
+            enrollmentClassResponse.setCourseName(enrollmentClass.getCourseId());
             enrollmentClassResponse.setClassName(enrollmentClass.getClassName());
-            enrollmentClassResponse.setInstructorId(enrollmentClass.getInstructorId());
             enrollmentClassResponse.setCurrentStudents(enrollmentClass.getCurrentStudents());
             enrollmentClassResponse.setMaxStudent(enrollmentClass.getMaxStudent());
+            enrollmentClassResponse.setStatusEnrollClass(enrollmentClass.getStatusEnrollClass());
             return enrollmentClassResponse;
         }).collect(Collectors.toList());
-        return  enrollmentClassResponses;
+        return enrollmentClassResponses;
+    }
+
+    public List<EnrollmentClassResponse> getListEnrollClassByCourse(String courseId) {
+        List<EnrollmentClass> enrollmentClassList = enrollmentClassRepository.findByCoureId(courseId);
+        List<EnrollmentClassResponse> enrollmentClassResponses = enrollmentClassList.stream().map(enrollmentClass -> {
+            EnrollmentClassResponse enrollmentClassResponse = new EnrollmentClassResponse();
+            enrollmentClassResponse.setId(enrollmentClass.getId());
+            enrollmentClassResponse.setCourseName(enrollmentClass.getCourseId());
+            enrollmentClassResponse.setClassName(enrollmentClass.getClassName());
+            enrollmentClassResponse.setCurrentStudents(enrollmentClass.getCurrentStudents());
+            enrollmentClassResponse.setMaxStudent(enrollmentClass.getMaxStudent());
+            enrollmentClassResponse.setStatusEnrollClass(enrollmentClass.getStatusEnrollClass());
+            return enrollmentClassResponse;
+        }).collect(Collectors.toList());
+        return enrollmentClassResponses;
+    }
+
+    public EnrollmentClassResponse getEnrollClassById(String enrollmentClassId) {
+        EnrollmentClass enrollmentClass = enrollmentClassRepository.findById(enrollmentClassId).get();
+        EnrollmentClassResponse enrollmentClassResponse = new EnrollmentClassResponse();
+        enrollmentClassResponse.setId(enrollmentClass.getId());
+        enrollmentClassResponse.setCourseName(enrollmentClass.getCourseId());
+        enrollmentClassResponse.setClassName(enrollmentClass.getClassName());
+        enrollmentClassResponse.setCurrentStudents(enrollmentClass.getCurrentStudents());
+        enrollmentClassResponse.setMaxStudent(enrollmentClass.getMaxStudent());
+        enrollmentClassResponse.setStatusEnrollClass(enrollmentClass.getStatusEnrollClass());
+        return enrollmentClassResponse;
     }
 }

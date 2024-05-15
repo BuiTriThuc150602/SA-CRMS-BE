@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class CourseResponse {
-    private long id;
+    private String id;
     private String name;
     private int credit;
     private List<Long> prerequisiteCourseIds; // Danh sách các ID của môn học tiên quyết

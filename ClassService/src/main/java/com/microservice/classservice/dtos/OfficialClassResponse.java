@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficialClassResponse {
-    long id;
+    String id;
     String className;
     long instructorId;
     LocalDate registrationDate;

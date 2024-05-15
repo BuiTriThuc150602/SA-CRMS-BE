@@ -1,9 +1,11 @@
 package com.microservice.enrollmentservice.models;
 
+import com.microservice.enrollmentservice.enums.CollectionStatus;
 import com.microservice.enrollmentservice.enums.EnrollmentStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,22 +17,31 @@ import java.util.Date;
 @ToString
 public class Enrollment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "enrollment_id")
-    private Long id;
+    private String id;
 
     @Column(name = "student_id")
-    private Long studentId;
+    private String studentId;
 
     @Column(name = "course_id")
-    private Long courseId;
+    private String courseId;
 
-    @Column(name = "semester")
-    private String semester;
+    @Column(name = "class_id")
+    private String classId;
+
+    @Column(name = "schedule_id")
+    private String scheduleId;
+
+    @Column(name = "deadline")
+    private LocalDate deadline;
 
     @Enumerated(EnumType.ORDINAL)
-    @Column(name = "status")
-    private EnrollmentStatus status;
+    @Column(name = "enrollment_status")
+    private EnrollmentStatus enrollmentStatus;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "collection_status")
+    private CollectionStatus collectionStatus;
 
     @Column(name = "registration_date")
     private Date registrationDate;
@@ -38,24 +49,7 @@ public class Enrollment {
     @Column(name = "cancellation_date")
     private Date cancellationDate;
 
-    @Column(name = "class_id")
-    private Long classId;
-
-    @Column(name = "teacher_id")
-    private Long teacherId;
-
     @Column(name = "tuition_fee")
     private Double tuitionFee;
 
-    public Enrollment(Long studentId, Long courseId, String semester, EnrollmentStatus status, Date registrationDate, Date cancellationDate, Long classId, Long teacherId, Double tuitionFee) {
-        this.studentId = studentId;
-        this.courseId = courseId;
-        this.semester = semester;
-        this.status = status;
-        this.registrationDate = registrationDate;
-        this.cancellationDate = cancellationDate;
-        this.classId = classId;
-        this.teacherId = teacherId;
-        this.tuitionFee = tuitionFee;
-    }
 }

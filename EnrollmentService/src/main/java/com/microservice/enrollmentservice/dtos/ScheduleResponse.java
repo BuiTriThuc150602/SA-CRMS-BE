@@ -1,17 +1,20 @@
-package com.microservice.scheduleservice.dtos;
+package com.microservice.enrollmentservice.dtos;
 
-import com.microservice.scheduleservice.enums.DayOfWeek;
-import com.microservice.scheduleservice.enums.TypeEnum;
-import lombok.*;
 
-import java.io.Serializable;
+import com.microservice.enrollmentservice.enums.TypeEnum;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ScheduleResponse{
+public class ScheduleResponse {
     private DayOfWeek dayOfWeek;
     private String lesson;
     private String practiceGroup;

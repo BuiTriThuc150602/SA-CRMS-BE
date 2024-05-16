@@ -1,17 +1,17 @@
 package com.microservice.classservice.dtos;
 
+import com.microservice.classservice.enums.StatusEnrollClass;
 import lombok.*;
-
-import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnrollmentClassResponse {
-    long id;
-    String className;
-    long instructorId;
-    int currentStudents;
-    int maxStudent;
+    private String id;
+    private  String courseName;
+    private  String className;
+    private int currentStudents;
+    private int maxStudent;
+    private StatusEnrollClass statusEnrollClass;
 }

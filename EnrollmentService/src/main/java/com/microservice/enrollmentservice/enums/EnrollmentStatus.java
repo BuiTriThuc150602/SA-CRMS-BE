@@ -1,9 +1,8 @@
 package com.microservice.enrollmentservice.enums;
 
 public enum EnrollmentStatus {
-    REGISTER(0),
-    CANCEL(1),
-    PENDING(2);
+    NEW(0),
+    OLD(1);
 
     private int value;
 

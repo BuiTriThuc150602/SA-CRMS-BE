@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/schedules")
+@RequestMapping("/schedule")
 public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
@@ -25,5 +25,18 @@ public class ScheduleController {
     @ResponseStatus(HttpStatus.OK)
     public List<ScheduleResponse> getAllSchedule() {
         return scheduleService.getAll();
+    }
+
+    @GetMapping("/by-enrollment-class/{enrollmentClassId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<ScheduleResponse> getListScheduleByEnrollmentClass(@PathVariable("enrollmentClassId") String enrollmentClassId) {
+        return scheduleService.getListScheduleByEnrollmentClass(enrollmentClassId);
+    }
+
+
+    @GetMapping("/by-id/{scheduleId}")
+    @ResponseStatus(HttpStatus.OK)
+    public ScheduleResponse getScheduleById(@PathVariable("scheduleId") String scheduleId) {
+        return scheduleService.getScheduleById(scheduleId);
     }
 }

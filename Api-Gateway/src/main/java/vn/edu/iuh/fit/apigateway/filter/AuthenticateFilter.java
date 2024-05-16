@@ -21,9 +21,9 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
   private AuthenticateService authenticateService;
   private final Logger log = LoggerFactory.getLogger(AuthenticateFilter.class);
 
-  public AuthenticateFilter() {
-    super(Config.class);
-  }
+    public AuthenticateFilter() {
+        super(Config.class);
+    }
 
   @Override
   public GatewayFilter apply(Config config) {
@@ -58,7 +58,7 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
     };
   }
 
-  public static class Config {
+    public static class Config {
 
-  }
+    }
 }

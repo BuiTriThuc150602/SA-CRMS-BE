@@ -1,5 +1,6 @@
 package com.microservice.learningresultservice.models;
 
+import com.microservice.learningresultservice.enums.ClassificationEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,17 +15,30 @@ import java.util.List;
 @ToString
 public class StudentGrade {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "student_grade_id")
-    private long id;
-    @Column(name = "user_id")
-    private long userId;
+    private String id;
+    @Column(name = "student_id")
+    private long studentId;
+    @Column(name = "semester")
+    private String semester;
     @Column(name = "total_credits")
     private int totalCredits;
     @Column(name = "total_credits")
-    private int totalCourses;
-    @Column(name = "cumulative_gpa")
-    private float cumulativeGpa;
+    private int totalCreditsOwed;
+    @Column(name = "avg_scrore_10th")
+    private float avgScrore10th;
+    @Column(name = "avg_scrore_4th")
+    private float avgScrore4th;
+    @Column(name = "cumulative_gpa_10th")
+    private float cumulativeGpa10th;
+    @Column(name = "cumulative_gpa_4th")
+    private float cumulativeGpa4th;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "total_classification_accumulation")
+    private ClassificationEnum totalClassificationAccumulation;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "total_classification_semester")
+    private ClassificationEnum totalClassificationSemester;
     @OneToMany(mappedBy = "studentGrade")
     private List<GradeCourse> gradeCourses;
 

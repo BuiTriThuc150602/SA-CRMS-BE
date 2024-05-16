@@ -9,7 +9,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class CourseRequest {
+    private String id;
     private String name;
     private int credit;
+    private String semester;
+    private String faculty;
     private List<Long> prerequisiteIds;
 }

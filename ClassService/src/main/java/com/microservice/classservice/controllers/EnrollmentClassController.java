@@ -26,4 +26,16 @@ public class EnrollmentClassController {
     public List<EnrollmentClassResponse> getAllEnrollmentClass(){
         return enrollmentClassService.getAll();
     }
+
+    @GetMapping("/by-course/{courseId}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EnrollmentClassResponse> getEnrollClassByCourse(@PathVariable("courseId") String courseId){
+        return enrollmentClassService.getListEnrollClassByCourse(courseId);
+    }
+
+    @GetMapping("/by-id/{enrollmentClassId}")
+    @ResponseStatus(HttpStatus.OK)
+    public EnrollmentClassResponse getEnrollClassById(@PathVariable("enrollmentClassId") String enrollmentClassId){
+        return enrollmentClassService.getEnrollClassById(enrollmentClassId);
+    }
 }

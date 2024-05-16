@@ -32,6 +32,8 @@ public class Enrollment {
     @Column(name = "schedule_id")
     private String scheduleId;
 
+    private String semester;
+
     @Column(name = "deadline")
     private LocalDate deadline;
 

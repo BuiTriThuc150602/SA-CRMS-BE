@@ -22,6 +22,7 @@ public class EnrollmentRequest {
     private String courseId;
     private String classId;
     private String scheduleId;
+    private String semester;
     private LocalDate deadline;
     private EnrollmentStatus enrollmentStatus;
     private CollectionStatus collectionStatus;

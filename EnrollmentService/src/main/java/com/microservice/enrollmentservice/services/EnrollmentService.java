@@ -29,6 +29,7 @@ public class EnrollmentService {
         enrollment.setCourseId(enrollmentRequest.getCourseId());
         enrollment.setClassId(enrollmentRequest.getClassId());
         enrollment.setScheduleId(enrollmentRequest.getScheduleId());
+        enrollment.setSemester(enrollmentRequest.getSemester());
         enrollment.setDeadline(enrollmentRequest.getDeadline());
         enrollment.setEnrollmentStatus(enrollmentRequest.getEnrollmentStatus());
         enrollment.setCollectionStatus(enrollmentRequest.getCollectionStatus());
@@ -39,6 +40,33 @@ public class EnrollmentService {
         enrollmentRepository.save(enrollment);
         log.info("Enrollment with id " + enrollment.getId() + " is saved");
     }
+
+    public List<EnrollmentResponse> getEnrollmentsByStudentIdAndSemester(String studentId, String semester) {
+        List<Enrollment> enrollmentList = enrollmentRepository.findEnrollmentsByStudentIdAndSemester(studentId, semester);
+
+        return enrollmentList.stream().map(enrollment -> {
+            EnrollmentResponse enrollmentResponse = new EnrollmentResponse();
+            CourseResponse courseResponse = getCourseById(enrollment.getCourseId());
+            EnrollmentClassResponse enrollmentClassResponse = getEnrollmentClassById(enrollment.getClassId());
+            ScheduleResponse scheduleResponse = getScheduleById(enrollment.getScheduleId());
+
+            enrollmentResponse.setClassId(enrollment.getClassId());
+            //Tim môn học theo Id bằng WebClient
+            enrollmentResponse.setCourseName(courseResponse.getName());
+            enrollmentResponse.setCredit(courseResponse.getCredit());
+            //Tim lớp HP theo Id bằng WebClient
+            enrollmentResponse.setClassName(enrollmentClassResponse.getClassName());
+            enrollmentResponse.setSemester(enrollment.getSemester());
+            enrollmentResponse.setDeadline(enrollment.getDeadline());
+            enrollmentResponse.setEnrollmentStatus(enrollment.getEnrollmentStatus());
+            enrollmentResponse.setCollectionStatus(enrollment.getCollectionStatus());
+            enrollmentResponse.setRegistrationDate(enrollment.getRegistrationDate());
+            enrollmentResponse.setCancellationDate(enrollment.getCancellationDate());
+            enrollmentResponse.setTuitionFee(enrollment.getTuitionFee());
+            return enrollmentResponse;
+        }).collect(Collectors.toList());
+    }
+
 
     public List<EnrollmentResponse> getAll() {
         List<Enrollment> enrollmentList = enrollmentRepository.findAll();
@@ -55,6 +83,7 @@ public class EnrollmentService {
             enrollmentResponse.setCredit(courseResponse.getCredit());
             //Tim lớp HP theo Id bằng WebClient
             enrollmentResponse.setClassName(enrollmentClassResponse.getClassName());
+            enrollmentResponse.setSemester(enrollment.getSemester());
             enrollmentResponse.setDeadline(enrollment.getDeadline());
             enrollmentResponse.setEnrollmentStatus(enrollment.getEnrollmentStatus());
             enrollmentResponse.setCollectionStatus(enrollment.getCollectionStatus());

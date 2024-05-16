@@ -39,6 +39,7 @@ public class RouterValidator {
             //API Course
             "/api/v1/course",
             "/api/v1/course/{courseId}",
+            "/api/v1/course/search",
             //API EnrollmentClass
             "/api/v1/class/enrollmentclass/by-course/{courseId}",
             "/api/v1/class/enrollmentclass/by-id/{enrollmentClassId}",
@@ -46,7 +47,8 @@ public class RouterValidator {
             "/api/v1/schedule/by-enrollment-class/{enrollmentClassId}",
             "/api/v1/schedule/by-id/{scheduleId}",
             //API Enrollment
-            "/api/v1/enrollment"
+            "/api/v1/enrollment",
+            "/api/v1/enrollment/search"
     );
 
 

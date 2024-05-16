@@ -13,5 +13,7 @@ public class CourseResponse {
     private String id;
     private String name;
     private int credit;
+    private String semester;
+    private String faculty;
     private List<Long> prerequisiteCourseIds; // Danh sách các ID của môn học tiên quyết
 }

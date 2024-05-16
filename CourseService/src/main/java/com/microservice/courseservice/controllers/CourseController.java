@@ -32,4 +32,12 @@ public class CourseController {
     public CourseResponse getCoursesById(@PathVariable String courseId){
         return courseService.getCoursesById(courseId);
     }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseResponse> getCoursesBySemesterAndFaculty(
+            @RequestParam String semester,
+            @RequestParam String faculty) {
+        return courseService.getCoursesBySemesterAndFaculty(semester, faculty);
+    }
 }

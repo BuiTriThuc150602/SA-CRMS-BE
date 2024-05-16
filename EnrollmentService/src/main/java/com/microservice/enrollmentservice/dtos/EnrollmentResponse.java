@@ -16,6 +16,7 @@ public class EnrollmentResponse {
     private String classId;
     private String courseName;
     private String className;
+    private String semester;
     private int credit;
     private LocalDate deadline;
     private EnrollmentStatus enrollmentStatus;

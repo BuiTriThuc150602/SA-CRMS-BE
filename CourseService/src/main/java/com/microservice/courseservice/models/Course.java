@@ -19,14 +19,11 @@ public class Course {
     @Column(name = "course_name", nullable = false)
     private String name;
     private int credit;
+    private String semester;
+    private String faculty;
     @ElementCollection
     @CollectionTable(name = "course_prerequisites", joinColumns = @JoinColumn(name = "course_id"))
     @Column(name = "prerequisite_id")
     private List<Long> prerequisiteIds;
 
-    public Course(String name, int credit, List<Long> prerequisiteIds) {
-        this.name = name;
-        this.credit = credit;
-        this.prerequisiteIds = prerequisiteIds;
-    }
 }

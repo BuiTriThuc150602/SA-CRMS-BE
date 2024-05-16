@@ -11,4 +11,7 @@ import java.util.Optional;
 public interface CourseRepository extends JpaRepository<Course, String> {
     @Query("select c from Course c where c.id =?1")
     Optional<Course> findCourseById(String courseId);
+
+    @Query("select c from Course c where c.semester=?1 and c.faculty=?2")
+    List<Course> findCoursesBySemesterAndFaculty(String semester, String faculty);
 }

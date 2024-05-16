@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.dto.responses;
+package vn.edu.iuh.fit.studentservice.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AccessLevel;
@@ -16,7 +16,7 @@ import lombok.experimental.FieldDefaults;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
     @Builder.Default
-    private int code = 2000;
+    private int code = 3000;
     private String message;
     private T result;
 }

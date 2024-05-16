@@ -1,4 +1,4 @@
-package vn.edu.iuh.fit.authservice.config;
+package vn.edu.iuh.fit.studentservice.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -7,8 +7,8 @@ import java.io.IOException;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import vn.edu.iuh.fit.authservice.dto.responses.ApiResponse;
-import vn.edu.iuh.fit.authservice.enums.ErrorCode;
+import vn.edu.iuh.fit.studentservice.dto.responses.ApiResponse;
+import vn.edu.iuh.fit.studentservice.enums.ErrorCode;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override

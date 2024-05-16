@@ -1,22 +1,24 @@
 package vn.edu.iuh.fit.authservice.dto.responses;
 
-import java.time.LocalDate;
 import java.util.Set;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
+@Getter
+@Setter
+@FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@NoArgsConstructor
 public class UserResponse {
-    String id;
-    String username;
-    String email;
-    Set<RoleResponse> roles;
+
+  String id;
+  String name;
+  String email;
+  Set<RoleResponse> roles;
+
 }

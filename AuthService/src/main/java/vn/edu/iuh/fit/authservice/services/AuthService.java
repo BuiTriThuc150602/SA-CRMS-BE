@@ -35,10 +35,11 @@ public class AuthService {
 
   @Transactional
   public UserCredential createUser(AuthRegisterRequest authRequest) {
+    log.info("Create user: {}", authRequest);
     if (userCredentialRepository.existsById(authRequest.getId())) {
       throw new AppException(ErrorCode.USER_EXISTED);
     }
-    List<String> roles = authRequest.getRoles();
+    Set<String> roles = authRequest.getRoles();
     Set<Role> roleSet = roleRepository.findByNameIn(roles);
     UserCredential saveUser = new UserCredential(
         authRequest.getId(),

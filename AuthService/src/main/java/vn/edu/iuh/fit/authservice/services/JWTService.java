@@ -22,6 +22,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import vn.edu.iuh.fit.authservice.enums.ErrorCode;
+import vn.edu.iuh.fit.authservice.exceptions.AppException;
 import vn.edu.iuh.fit.authservice.models.UserCredential;
 
 @Service
@@ -41,10 +43,10 @@ public class JWTService {
     SignedJWT signedJWT = SignedJWT.parse(token);
     Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
     if (expirationTime.before(new Date())) {
-      throw new RuntimeException("Token is expired");
+      throw new AppException(ErrorCode.TOKEN_EXPIRED);
     }
     if (!signedJWT.verify(verifier)) {
-      throw new RuntimeException("Token is invalid");
+      throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
     return signedJWT;
 
@@ -53,7 +55,7 @@ public class JWTService {
   public String generateToken(UserCredential userCredential) {
     JWSHeader header = new JWSHeader(JWSAlgorithm.HS256);
     JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-        .subject(userCredential.getName())
+        .subject(userCredential.getId())
         .claim(("roles"), buildScope(userCredential))
         .issuer("auth-service")
         .issueTime(new Date())

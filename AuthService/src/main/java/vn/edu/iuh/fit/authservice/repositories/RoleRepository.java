@@ -12,5 +12,5 @@ public interface RoleRepository extends JpaRepository<Role, Long> {
   @Query("select r from Role r where upper(r.name) = upper(?1)")
   Optional<Role> findByNameIgnoreCase(String name);
 
-  Set<Role> findByNameIn(List<String> roles);
+  Set<Role> findByNameIn(Set<String> roles);
 }

@@ -1,8 +1,6 @@
 package vn.edu.iuh.fit.apigateway.filter;
 
 import java.net.URI;
-import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,18 +8,17 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import vn.edu.iuh.fit.apigateway.enums.ErrorCode;
 import vn.edu.iuh.fit.apigateway.exceptions.AppException;
+import vn.edu.iuh.fit.apigateway.service.AuthenticateService;
 
 @Component
 public class AuthenticateFilter extends AbstractGatewayFilterFactory<AuthenticateFilter.Config> {
-
-  @Autowired
-  private WebClient.Builder webClientBuilder;
   @Autowired
   private RouterValidator routerValidator;
+  @Autowired
+  private AuthenticateService authenticateService;
   private final Logger log = LoggerFactory.getLogger(AuthenticateFilter.class);
 
   public AuthenticateFilter() {
@@ -30,7 +27,6 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
 
   @Override
   public GatewayFilter apply(Config config) {
-    WebClient webClient = webClientBuilder.build();
     return (exchange, chain) -> {
       if (!routerValidator.isSecured.test(exchange.getRequest())) {
         return chain.filter(exchange);
@@ -44,35 +40,20 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
       if (Authorization == null || Authorization.isEmpty()) {
         return Mono.error(new AppException(ErrorCode.UNAUTHENTICATED));
       }
-      return webClient.get()
-          .uri("http://AUTHENTICATESERVICE/auth/get-claims")
-          .headers(httpHeaders -> httpHeaders.addAll(headers))
-          .retrieve()
-          .bodyToMono(Map.class)
-          .flatMap(claims -> {
-            if (claims == null) {
-              return Mono.error(
-                  new AppException(ErrorCode.UNAUTHORIZED));
-            } else {
-              Map<String, Object> body = (Map<String, Object>) claims.get("result");
-              List<Map<String, Object>> rolesList = (List<Map<String, java.lang.Object>>) body.get(
-                  "roles");
-              var isAdmin = rolesList.stream().anyMatch(role -> role.get("name").equals("admin"));
-              log.info("Roles: " + rolesList);
-              log.info("Is Admin: " + isAdmin);
-              if (routerValidator.adminEndpoints.test(exchange.getRequest())) {
-                if (!isAdmin) {
-                  return Mono.error(
-                      new AppException(ErrorCode.UNAUTHORIZED));
-                }
+      return authenticateService.getClaims(Authorization)
+          .flatMap(claimsResponse -> {
+            boolean isAdmin = claimsResponse.getResult().getRoles().stream()
+                .anyMatch(role -> role.getName().equals("admin"));
+            if (routerValidator.adminEndpoints.test(exchange.getRequest())) {
+              if (!isAdmin) {
+                return Mono.error(
+                    new AppException(ErrorCode.UNAUTHORIZED));
               }
-              return chain.filter(exchange);
             }
-          }).onErrorResume(e -> {
-            if (e instanceof AppException) {
-              return Mono.error(e);
-            }
-            return Mono.error(new AppException(ErrorCode.UNAUTHORIZED));
+            return chain.filter(exchange);
+          }).onErrorResume(throwable -> {
+            log.error("Error when authenticate: {}", throwable.getMessage());
+            return Mono.error(new AppException(ErrorCode.UNAUTHENTICATED));
           });
     };
   }

@@ -16,6 +16,9 @@ public enum ErrorCode {
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),
     INVALID_DOB(1008, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     INVALID_REQUEST(1009, "Request not match any thing, please check it", HttpStatus.NOT_FOUND),
+    TIMEOUT(1010, "Request timeout", HttpStatus.REQUEST_TIMEOUT),
+    INVALID_TOKEN(1011, "Invalid token", HttpStatus.UNAUTHORIZED),
+    SERVICE_UNAVAILABLE(1012, "Service unavailable", HttpStatus.SERVICE_UNAVAILABLE)
     ;
     private final int code;
     private final String message;

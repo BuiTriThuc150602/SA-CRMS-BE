@@ -11,7 +11,7 @@ public enum StudentStatus {
 
   private final int value;
 
-  private StudentStatus(int value) {
+  StudentStatus(int value) {
     this.value = value;
   }
 

@@ -1,14 +1,19 @@
 package vn.edu.iuh.fit.studentservice.services;
 
 import java.util.Arrays;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.ErrorResponseException;
+import vn.edu.iuh.fit.studentservice.dto.Messages.UserCreationMessage;
 import vn.edu.iuh.fit.studentservice.dto.requests.StudentInfoRequest;
+import vn.edu.iuh.fit.studentservice.enums.ErrorCode;
 import vn.edu.iuh.fit.studentservice.enums.StudentStatus;
+import vn.edu.iuh.fit.studentservice.exceptions.AppException;
 import vn.edu.iuh.fit.studentservice.models.Student;
 import vn.edu.iuh.fit.studentservice.repositories.StudentRepository;
 
@@ -18,9 +23,109 @@ public class StudentService {
 
   @Autowired
   private StudentRepository studentRepository;
+  @Autowired
+  private JWTService jwtService;
+  @Autowired
+  private StreamBridge streamBridge;
 
-  public Student getStudentByToken(String id) {
-    return studentRepository.findById(id).orElse(null);
+  public Student saveStudent(StudentInfoRequest student) {
+    if (student == null) {
+      throw new AppException(ErrorCode.INVALID_REQUEST);
+    }
+
+    Student newStudent = new Student();
+
+    if (student.getId() != null) {
+      newStudent.setId(student.getId());
+    }
+    if (student.getName() != null) {
+      newStudent.setName(student.getName());
+    }
+    if (student.getEmail() != null) {
+      newStudent.setEmail(student.getEmail());
+    }
+    if (student.getPlaceOfBirth() != null) {
+      newStudent.setPlaceOfBirth(student.getPlaceOfBirth());
+    }
+    if (student.getDateOfBirth() != null) {
+      newStudent.setDateOfBirth(student.getDateOfBirth());
+    }
+    if (student.getGender() != null) {
+      newStudent.setGender(student.getGender());
+    }
+    if (student.getAvatar() != null) {
+      newStudent.setAvatar(student.getAvatar());
+    }
+    if (student.getPhone() != null) {
+      newStudent.setPhone(student.getPhone());
+    }
+    if (student.getAddress() != null) {
+      newStudent.setAddress(student.getAddress());
+    }
+    var studentStatus = student.getStatus();
+    var invalidStatus = Arrays.stream(StudentStatus.values())
+        .noneMatch(status -> status.getValue() == studentStatus);
+    if (invalidStatus) {
+      newStudent.setStatus(StudentStatus.ENROLLED);
+    } else {
+      newStudent.setStatus(StudentStatus.values()[studentStatus]);
+    }
+    if (student.getEducationalLevel() != null) {
+      newStudent.setEducationalLevel(student.getEducationalLevel());
+    }
+    if (student.getFaculty() != null) {
+      newStudent.setFaculty(student.getFaculty());
+    }
+    if (student.getMajor() != null) {
+      newStudent.setMajor(student.getMajor());
+    }
+    if (student.getStudentCode() != null) {
+      newStudent.setStudentCode(student.getStudentCode());
+    }
+    if (student.getStudentClass() != null) {
+      newStudent.setStudentClass(student.getStudentClass());
+    }
+    if (student.getStudentCourse() != null) {
+      newStudent.setStudentCourse(student.getStudentCourse());
+    }
+    if (student.getStudentType() != null) {
+      newStudent.setStudentType(student.getStudentType());
+    }
+    if (student.getStudentSpecialization() != null) {
+      newStudent.setStudentSpecialization(student.getStudentSpecialization());
+    }
+    if (student.getStudentGraduationYear() != null) {
+      newStudent.setStudentGraduationYear(student.getStudentGraduationYear());
+    }
+    if (student.getStudentGraduationType() != null) {
+      newStudent.setStudentGraduationType(student.getStudentGraduationType());
+    }
+
+    var result = studentRepository.save(newStudent);
+    var newUser = new UserCreationMessage(
+        result.getId(),
+        result.getName(),
+        result.getEmail(),
+        result.getId(),
+        Set.of("student")
+    );
+    streamBridge.send("output-out-0", newUser);
+
+    return newStudent;
+  }
+
+  public Student getStudentByToken(String token) {
+    try {
+      var signedJWT = jwtService.validateToken(token);
+      var claims = signedJWT.getJWTClaimsSet();
+      var id = claims.getSubject();
+      return studentRepository.findById(id).
+          orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
+    } catch (Exception e) {
+      log.error("Error: {}", e.getMessage());
+      throw new AppException(ErrorCode.USER_NOT_EXISTED);
+    }
+
   }
 
   @Transactional

@@ -1,12 +1,12 @@
 package vn.edu.iuh.fit.authservice.controllers;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.nimbusds.jose.JOSEException;
+import java.text.ParseException;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,6 +26,7 @@ import vn.edu.iuh.fit.authservice.dto.requests.RoleRequest;
 import vn.edu.iuh.fit.authservice.dto.responses.ApiResponse;
 import vn.edu.iuh.fit.authservice.dto.responses.AuthenticationResponse;
 import vn.edu.iuh.fit.authservice.dto.responses.RoleResponse;
+import vn.edu.iuh.fit.authservice.dto.responses.ClaimsResponse;
 import vn.edu.iuh.fit.authservice.dto.responses.UserResponse;
 import vn.edu.iuh.fit.authservice.enums.ErrorCode;
 import vn.edu.iuh.fit.authservice.exceptions.AppException;
@@ -41,6 +42,8 @@ public class AuthController {
   private AuthenticationManager authenticationManager;
   @Autowired
   private AuthService authService;
+  @Autowired
+  private JWTService jwtService;
 
   @PostMapping("/login")
   public ApiResponse<?> getToken(@RequestBody AuthRequestMapping authRequest) {
@@ -68,7 +71,7 @@ public class AuthController {
   }
 
   @PostMapping("/add-role")
-  @PreAuthorize("hasRole('ADMIN')")
+  @PreAuthorize("hasRole('admin')")
   public ResponseEntity<String> addNewRole(@RequestBody RoleRequest roleRequest) {
     try {
       if (roleRequest.getRoleName() == null || roleRequest.getRoleName().trim().isEmpty()) {
@@ -86,6 +89,7 @@ public class AuthController {
   }
 
   @PostMapping("/register")
+  @PreAuthorize("hasRole('admin')")
   public ApiResponse<?> addNewUser(@RequestBody AuthRegisterRequest authRequest) {
     var user = authService.createUser(authRequest);
     Set<RoleResponse> roles = user.getRoles().stream()
@@ -99,18 +103,35 @@ public class AuthController {
 
   @GetMapping("/get-claims")
   public ApiResponse<?> getClaims(@RequestHeader String Authorization) {
+    log.info("Get claims for : {}", Authorization);
     if (Authorization == null) {
       throw new AppException(ErrorCode.UNAUTHENTICATED);
     } else if (!Authorization.startsWith("Bearer ")) {
       throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
-    var user = authService.getInfo();
-    Set<RoleResponse> roles = user.getRoles().stream()
-        .map(role -> new RoleResponse(role.getName(), role.getDescription()))
-        .collect(Collectors.toSet());
-    return ApiResponse.<UserResponse>builder()
-        .result(new UserResponse(user.getId(), user.getName(), user.getEmail(), roles))
-        .build();
+    var token = Authorization.substring(7);
+    try {
+      var signedJWT = jwtService.validateToken(token);
+      if (signedJWT == null) {
+        throw new AppException(ErrorCode.UNAUTHENTICATED);
+      } else {
+        log.info("Claims: {}", signedJWT.getJWTClaimsSet().toJSONObject());
+        var rolesClaims = signedJWT.getJWTClaimsSet().getStringClaim("roles");
+        var rolesClaimsArray = Arrays.asList(rolesClaims.split(","));
+        Set<RoleResponse> roles = rolesClaimsArray.stream()
+            .map(role -> new RoleResponse(role, ""))
+            .collect(Collectors.toSet());
+        return ApiResponse.<ClaimsResponse>builder()
+            .result(new ClaimsResponse(
+                signedJWT.getJWTClaimsSet().getSubject(),
+                roles
+            ))
+            .build();
+      }
+    } catch (ParseException | JOSEException ex) {
+      log.error("Error when get claims: {}", ex.getMessage());
+      throw new AppException(ErrorCode.UNAUTHENTICATED);
+    }
   }
-
 }
+

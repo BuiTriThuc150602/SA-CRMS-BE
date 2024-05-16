@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.authservice.dto.requests;
 
 import java.util.List;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ public class AuthRegisterRequest {
   private String name;
   private String email;
   private String password;
-  private List<String> roles;
+  private Set<String> roles;
 
 }

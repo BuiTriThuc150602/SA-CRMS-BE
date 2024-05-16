@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import vn.edu.iuh.fit.studentservice.dto.responses.ApiResponse;
 import vn.edu.iuh.fit.studentservice.models.Student;
 import vn.edu.iuh.fit.studentservice.repositories.StudentRepository;
 
@@ -24,10 +25,10 @@ public class TestController {
   private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
 
   @RequestMapping("/test")
-  public ResponseEntity<?> testApi() {
+  public ApiResponse<?> testApi() {
     LOGGER.info("Test API");
     var students = studentRepository.findAll();
-    return ResponseEntity.ok(students);
+    return ApiResponse.<List<Student>>builder().result(new ArrayList<>(students)).build();
   }
 
 }

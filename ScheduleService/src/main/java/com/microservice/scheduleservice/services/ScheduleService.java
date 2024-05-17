@@ -1,11 +1,14 @@
 package com.microservice.scheduleservice.services;
 
+import com.microservice.scheduleservice.dtos.EnrollmentClassResponse;
 import com.microservice.scheduleservice.dtos.ScheduleRequest;
 import com.microservice.scheduleservice.dtos.ScheduleResponse;
+import com.microservice.scheduleservice.exceptions.MaxStudentsReachedException;
 import com.microservice.scheduleservice.models.Schedule;
 import com.microservice.scheduleservice.reponsitories.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +17,9 @@ import java.util.stream.Collectors;
 public class ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private WebClient.Builder loadBalancedWebClientBuilder;
 
     public void createSchedule(ScheduleRequest scheduleRequest) {
         Schedule schedule = new Schedule();
@@ -52,22 +58,27 @@ public class ScheduleService {
     }
 
     public List<ScheduleResponse> getListScheduleByEnrollmentClass(String enrollmentClassId) {
-        List<Schedule> scheduleList = scheduleRepository.findScheduleByEnrollmentClassId(enrollmentClassId);
-        List<ScheduleResponse> scheduleResponses = scheduleList.stream().map(schedule -> {
-            ScheduleResponse scheduleResponse = new ScheduleResponse();
-            scheduleResponse.setDayOfWeek(schedule.getDayOfWeek());
-            scheduleResponse.setLesson(schedule.getLesson());
-            scheduleResponse.setPracticeGroup(schedule.getPracticeGroup());
-            scheduleResponse.setRoom(schedule.getRoom());
-            scheduleResponse.setBuilding(schedule.getBuilding());
-            scheduleResponse.setFacility(schedule.getFacility());
-            scheduleResponse.setTeacherId(schedule.getTeacherId());
-            scheduleResponse.setStartDate(schedule.getStartDate());
-            scheduleResponse.setFinishDate(schedule.getFinishDate());
-            scheduleResponse.setTypeEnum(schedule.getTypeEnum());
-            return scheduleResponse;
-        }).collect(Collectors.toList());
-        return scheduleResponses;
+        EnrollmentClassResponse enrollmentClassResponse = getEnrollmentClassById(enrollmentClassId);
+        if (enrollmentClassResponse.getCurrentStudents() < enrollmentClassResponse.getMaxStudent()) {
+            List<Schedule> scheduleList = scheduleRepository.findScheduleByEnrollmentClassId(enrollmentClassId);
+            List<ScheduleResponse> scheduleResponses = scheduleList.stream().map(schedule -> {
+                ScheduleResponse scheduleResponse = new ScheduleResponse();
+                scheduleResponse.setDayOfWeek(schedule.getDayOfWeek());
+                scheduleResponse.setLesson(schedule.getLesson());
+                scheduleResponse.setPracticeGroup(schedule.getPracticeGroup());
+                scheduleResponse.setRoom(schedule.getRoom());
+                scheduleResponse.setBuilding(schedule.getBuilding());
+                scheduleResponse.setFacility(schedule.getFacility());
+                scheduleResponse.setTeacherId(schedule.getTeacherId());
+                scheduleResponse.setStartDate(schedule.getStartDate());
+                scheduleResponse.setFinishDate(schedule.getFinishDate());
+                scheduleResponse.setTypeEnum(schedule.getTypeEnum());
+                return scheduleResponse;
+            }).collect(Collectors.toList());
+            return scheduleResponses;
+        }else{
+            throw new MaxStudentsReachedException("The number of current students has reached the maximum limit.");
+        }
     }
 
 
@@ -85,7 +96,17 @@ public class ScheduleService {
         scheduleResponse.setFinishDate(schedule.getFinishDate());
         scheduleResponse.setTypeEnum(schedule.getTypeEnum());
         return scheduleResponse;
-
     }
+
+
+    private EnrollmentClassResponse getEnrollmentClassById(String enrollmentClassId) {
+        return loadBalancedWebClientBuilder.build()
+                .get()
+                .uri("http://CLASSSERVICE/class/enrollmentclass/by-id/{enrollmentClassId}", enrollmentClassId)
+                .retrieve()
+                .bodyToMono(EnrollmentClassResponse.class)
+                .block();
+    }
+
 
 }

@@ -18,7 +18,6 @@ public class RouterValidator {
   public static final List<String> internalApiEndpoints = List.of(
       "/api/v1/auth/.*",
       "/api/v1/students/.*"
-
   );
 
     public static final List<String> adminApiEndpoints = List.of(

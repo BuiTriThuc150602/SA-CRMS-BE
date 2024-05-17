@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
-import vn.edu.iuh.fit.studentservice.services.enums.StudentStatus;
+import vn.edu.iuh.fit.studentservice.enums.StudentStatus;
 
 @Getter @Setter @ToString
 @AllArgsConstructor @NoArgsConstructor

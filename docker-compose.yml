@@ -308,7 +308,7 @@ services:
     container_name: ScheduleService
     image: schedule-service:1.0
     ports:
-      - "8080:8080"
+      - "8090:8090"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     env_file:

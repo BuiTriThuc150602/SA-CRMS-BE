@@ -2,9 +2,11 @@ package com.microservice.scheduleservice.controllers;
 
 import com.microservice.scheduleservice.dtos.ScheduleRequest;
 import com.microservice.scheduleservice.dtos.ScheduleResponse;
+import com.microservice.scheduleservice.exceptions.MaxStudentsReachedException;
 import com.microservice.scheduleservice.services.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,9 +30,13 @@ public class ScheduleController {
     }
 
     @GetMapping("/by-enrollment-class/{enrollmentClassId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<ScheduleResponse> getListScheduleByEnrollmentClass(@PathVariable("enrollmentClassId") String enrollmentClassId) {
-        return scheduleService.getListScheduleByEnrollmentClass(enrollmentClassId);
+    public ResponseEntity<?> getListScheduleByEnrollmentClass(@PathVariable String enrollmentClassId) {
+        try {
+            List<ScheduleResponse> scheduleResponses = scheduleService.getListScheduleByEnrollmentClass(enrollmentClassId);
+            return ResponseEntity.ok(scheduleResponses);
+        } catch (MaxStudentsReachedException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
 

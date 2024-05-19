@@ -1,7 +1,7 @@
-package com.microservice.enrollmentservice.dtos;
+package com.microservice.scheduleservice.dtos;
 
-import com.microservice.enrollmentservice.enums.CollectionStatus;
-import com.microservice.enrollmentservice.enums.EnrollmentStatus;
+import com.microservice.scheduleservice.enums.CollectionStatus;
+import com.microservice.scheduleservice.enums.EnrollmentStatus;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +16,7 @@ public class EnrollmentResponse {
     private String classId;
     private String courseName;
     private String className;
+    private String scheduleId;
     private String semester;
     private int credit;
     private LocalDate deadline;

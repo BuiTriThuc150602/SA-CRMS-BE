@@ -14,5 +14,5 @@ public class CourseRequest {
     private int credit;
     private String semester;
     private String faculty;
-    private List<Long> prerequisiteIds;
+    private List<String> prerequisiteIds;
 }

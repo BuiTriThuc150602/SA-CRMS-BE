@@ -27,9 +27,9 @@ public class CourseController {
         return courseService.getAllCourse();
     }
 
-    @GetMapping("/{courseId}")
+    @GetMapping("/by-courseId")
     @ResponseStatus(HttpStatus.OK)
-    public CourseResponse getCoursesById(@PathVariable String courseId){
+    public CourseResponse getCoursesById(@RequestParam String courseId){
         return courseService.getCoursesById(courseId);
     }
 

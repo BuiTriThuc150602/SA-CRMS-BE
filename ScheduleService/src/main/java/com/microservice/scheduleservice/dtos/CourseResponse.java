@@ -1,4 +1,4 @@
-package com.microservice.courseservice.dtos;
+package com.microservice.scheduleservice.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.microservice.enrollmentservice.enums;
+package com.microservice.scheduleservice.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

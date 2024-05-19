@@ -1,4 +1,4 @@
-package com.microservice.enrollmentservice.enums;
+package com.microservice.scheduleservice.enums;
 
 public enum EnrollmentStatus {
     NEW(0),

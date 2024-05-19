@@ -24,6 +24,6 @@ public class Course {
     @ElementCollection
     @CollectionTable(name = "course_prerequisites", joinColumns = @JoinColumn(name = "course_id"))
     @Column(name = "prerequisite_id")
-    private List<Long> prerequisiteIds;
+    private List<String> prerequisiteIds;
 
 }

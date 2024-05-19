@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleResponse{
+    private String id;
+    private String enrollmentClassId;
     private DayOfWeek dayOfWeek;
     private String lesson;
     private String practiceGroup;

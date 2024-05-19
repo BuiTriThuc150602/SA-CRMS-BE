@@ -1,4 +1,4 @@
-package com.microservice.courseservice.dtos;
+package com.microservice.classservice.dtos;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,5 @@ public class CourseResponse {
     private int credit;
     private String semester;
     private String faculty;
-    private List<Long> prerequisiteCourseIds; // Danh sách các ID của môn học tiên quyết
+    private List<String> prerequisiteCourseIds; // Danh sách các ID của môn học tiên quyết
 }

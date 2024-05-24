@@ -55,12 +55,12 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
                         log.info("Is Admin: " + isAdmin);
 
                         Predicate<ServerHttpRequest> endpointSelector = null;
-                        if (isAdmin) {
-                            log.info("Run isAdmin");
-                            endpointSelector = routerValidator.adminEndpoints;
-                        } else if (isStudent) {
+                        if (isStudent) {
                             log.info("Run isStudent");
                             endpointSelector = routerValidator.studentEndpoints;
+                        } else if (isAdmin) {
+                            log.info("Run isAdmin");
+                            endpointSelector = routerValidator.adminEndpoints;
                         }
 
                         if (endpointSelector != null) {

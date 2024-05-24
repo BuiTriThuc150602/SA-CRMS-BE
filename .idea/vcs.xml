@@ -8,7 +8,7 @@
     <mapping directory="$PROJECT_DIR$/DiscoveryService" vcs="" />
     <mapping directory="$PROJECT_DIR$/GraduationService" vcs="" />
     <mapping directory="$PROJECT_DIR$/SA-CRMS-ConfigServer" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/SA-CRMS-FE" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/SA-CRMS-FE" vcs="" />
     <mapping directory="$PROJECT_DIR$/StudentService" vcs="" />
   </component>
 </project>

@@ -4,11 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/Api-Gateway.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Api-Gateway.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/AuthService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/AuthService.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ClassService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ClassService.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/CourseService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CourseService.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EnrollmentService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/EnrollmentService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/SA_CourseRegistrationAndManagementSystem.iml" filepath="$PROJECT_DIR$/.idea/SA_CourseRegistrationAndManagementSystem.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ScheduleService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ScheduleService.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/StudentService.main.iml" filepath="$PROJECT_DIR$/.idea/modules/StudentService.main.iml" />
     </modules>
   </component>

@@ -85,7 +85,7 @@ services:
       - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
     networks:
-        - kafka-network
+      - kafka-network
 
 
   config-server:
@@ -308,7 +308,7 @@ services:
     container_name: ScheduleService
     image: schedule-service:1.0
     ports:
-      - "8080:8080"
+      - "8090:8090"
     environment:
       - SPRING_PROFILES_ACTIVE=prod
     env_file:

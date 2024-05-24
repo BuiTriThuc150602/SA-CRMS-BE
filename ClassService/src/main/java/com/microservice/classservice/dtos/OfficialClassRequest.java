@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficialClassRequest  {
+    String id;
     String className;
     long instructorId;
     LocalDate registrationDate;

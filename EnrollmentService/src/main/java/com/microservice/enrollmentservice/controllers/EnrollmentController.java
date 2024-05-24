@@ -26,4 +26,14 @@ public class EnrollmentController {
     public List<EnrollmentResponse> getAllEnrollments(){
         return enrollmentService.getAll();
     }
+
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EnrollmentResponse> getEnrollmentsByStudentIdAndSemester(
+            @RequestParam String studentId,
+            @RequestParam String semester
+    ){
+        return enrollmentService.getEnrollmentsByStudentIdAndSemester(studentId,semester);
+    }
 }

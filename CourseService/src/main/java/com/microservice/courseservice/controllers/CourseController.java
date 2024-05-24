@@ -26,4 +26,18 @@ public class CourseController {
     public List<CourseResponse> getAllCourses(){
         return courseService.getAllCourse();
     }
+
+    @GetMapping("/by-courseId")
+    @ResponseStatus(HttpStatus.OK)
+    public CourseResponse getCoursesById(@RequestParam String courseId){
+        return courseService.getCoursesById(courseId);
+    }
+
+    @GetMapping("/search")
+    @ResponseStatus(HttpStatus.OK)
+    public List<CourseResponse> getCoursesBySemesterAndFaculty(
+            @RequestParam String semester,
+            @RequestParam String faculty) {
+        return courseService.getCoursesBySemesterAndFaculty(semester, faculty);
+    }
 }

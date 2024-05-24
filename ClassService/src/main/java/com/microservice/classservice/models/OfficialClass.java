@@ -17,6 +17,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OfficialClass extends  Class{
+    @Column(name = "instructor_id")
+    private long instructorId;
     @Column(name = "registration_date")
     private LocalDate registrationDate;
 }

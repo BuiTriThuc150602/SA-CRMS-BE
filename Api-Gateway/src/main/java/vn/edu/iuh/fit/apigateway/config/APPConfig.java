@@ -16,7 +16,7 @@ public class APPConfig {
   @LoadBalanced
   public WebClient loadBalancedWebClientBuilder() {
     log.info("Create WebClient");
-    return WebClient.builder().baseUrl("http://localhost:8010").build();
+    return WebClient.builder().baseUrl("http://192.168.1.5:8010").build();
   }
 
   @Bean

@@ -14,10 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class Class {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "class_id")
+    private String id;
     @Column(name = "class_name")
     private String className;
-    @Column(name = "instructor_id")
-    private long instructorId;
+
 }

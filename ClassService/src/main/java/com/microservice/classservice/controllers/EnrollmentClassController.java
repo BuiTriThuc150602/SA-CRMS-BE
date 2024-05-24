@@ -26,4 +26,21 @@ public class EnrollmentClassController {
     public List<EnrollmentClassResponse> getAllEnrollmentClass(){
         return enrollmentClassService.getAll();
     }
+
+    @GetMapping("/by-course")
+    @ResponseStatus(HttpStatus.OK)
+    public List<EnrollmentClassResponse> getEnrollClassByCourse(@RequestParam String courseId){
+        return enrollmentClassService.getListEnrollClassByCourse(courseId);
+    }
+
+    @GetMapping("/by-id")
+    @ResponseStatus(HttpStatus.OK)
+    public EnrollmentClassResponse getEnrollClassById(@RequestParam String enrollmentClassId){
+        return enrollmentClassService.getEnrollClassById(enrollmentClassId);
+    }
+
+    @PostMapping("/update-current-student")
+    public void updateNumberCurrentStudent(@RequestParam String enrollmentClassId){
+        enrollmentClassService.updateNumberCurrentStudent(enrollmentClassId);
+    }
 }

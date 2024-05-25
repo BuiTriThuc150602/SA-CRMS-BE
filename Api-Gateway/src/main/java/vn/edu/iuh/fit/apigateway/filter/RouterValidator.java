@@ -41,6 +41,7 @@ public class RouterValidator {
           Pattern.compile("/api/v1/course"),
           Pattern.compile("/api/v1/course/by-courseId"),
           Pattern.compile("/api/v1/course/search"),
+          Pattern.compile("/api/v1/course/check-duplicated-course-enrollment"),
           // API EnrollmentClass
           Pattern.compile("/api/v1/class/enrollmentclass/by-course"),
           Pattern.compile("/api/v1/class/enrollmentclass/by-id"),

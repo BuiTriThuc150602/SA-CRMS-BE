@@ -54,6 +54,7 @@ public class EnrollmentService {
             ScheduleResponse scheduleResponse = getScheduleById(enrollment.getScheduleId());
 
             enrollmentResponse.setId(enrollment.getId());
+            enrollmentResponse.setCourseId((enrollment.getCourseId()));
             enrollmentResponse.setClassId(enrollment.getClassId());
             //Tim môn học theo Id bằng WebClient
             enrollmentResponse.setCourseName(courseResponse.getName());
@@ -83,7 +84,7 @@ public class EnrollmentService {
             CourseResponse courseResponse = getCourseById(enrollment.getCourseId());
             EnrollmentClassResponse enrollmentClassResponse = getEnrollmentClassById(enrollment.getClassId());
             ScheduleResponse scheduleResponse = getScheduleById(enrollment.getScheduleId());
-
+            enrollmentResponse.setCourseId((enrollment.getCourseId()));
             enrollmentResponse.setId(enrollment.getId());
             enrollmentResponse.setClassId(enrollment.getClassId());
             //Tim môn học theo Id bằng WebClient

@@ -58,6 +58,7 @@ public class EnrollmentClassService {
             EnrollmentClassResponse enrollmentClassResponse = new EnrollmentClassResponse();
             CourseResponse courseResponse = getCourseById(enrollmentClass.getCourseId());
             enrollmentClassResponse.setId(enrollmentClass.getId());
+            enrollmentClassResponse.setCourseId(courseId);
             enrollmentClassResponse.setCourseName(courseResponse.getName());
             enrollmentClassResponse.setClassName(enrollmentClass.getClassName());
             enrollmentClassResponse.setCurrentStudents(enrollmentClass.getCurrentStudents());
@@ -74,6 +75,7 @@ public class EnrollmentClassService {
         CourseResponse courseResponse = getCourseById(enrollmentClass.getCourseId());
         EnrollmentClassResponse enrollmentClassResponse = new EnrollmentClassResponse();
         enrollmentClassResponse.setId(enrollmentClass.getId());
+        enrollmentClassResponse.setCourseId(enrollmentClass.getCourseId());
         enrollmentClassResponse.setCourseName(courseResponse.getName());
         enrollmentClassResponse.setClassName(enrollmentClass.getClassName());
         enrollmentClassResponse.setCurrentStudents(enrollmentClass.getCurrentStudents());

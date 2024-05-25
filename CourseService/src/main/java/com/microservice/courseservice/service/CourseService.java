@@ -2,12 +2,17 @@ package com.microservice.courseservice.service;
 
 import com.microservice.courseservice.dtos.CourseRequest;
 import com.microservice.courseservice.dtos.CourseResponse;
+import com.microservice.courseservice.dtos.EnrollmentClassResponse;
+import com.microservice.courseservice.dtos.EnrollmentResponse;
 import com.microservice.courseservice.models.Course;
 import com.microservice.courseservice.reponsitories.CourseRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +21,9 @@ import java.util.stream.Collectors;
 public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private WebClient.Builder loadBalancedWebClientBuilder;
 
     public void addCourse(CourseRequest courseRequest) {
         Course course = new Course();
@@ -40,7 +48,7 @@ public class CourseService {
             courseResponse.setCredit(course.getCredit());
             courseResponse.setSemester(course.getSemester());
             courseResponse.setFaculty(course.getFaculty());
-            List<Long> prerequisiteCourseIds = course.getPrerequisiteIds();
+            List<String> prerequisiteCourseIds = course.getPrerequisiteIds();
             courseResponse.setPrerequisiteCourseIds(prerequisiteCourseIds);
             return courseResponse;
         }).collect(Collectors.toList());
@@ -56,7 +64,7 @@ public class CourseService {
         courseResponse.setSemester(course.getSemester());
         courseResponse.setFaculty(course.getFaculty());
 
-        List<Long> prerequisiteCourseIds = course.getPrerequisiteIds();
+        List<String> prerequisiteCourseIds = course.getPrerequisiteIds();
         courseResponse.setPrerequisiteCourseIds(prerequisiteCourseIds);
         return courseResponse;
     }
@@ -72,11 +80,51 @@ public class CourseService {
             courseResponse.setCredit(course.getCredit());
             courseResponse.setSemester(course.getSemester());
             courseResponse.setFaculty(course.getFaculty());
-            List<Long> prerequisiteCourseIds = course.getPrerequisiteIds();
+            List<String> prerequisiteCourseIds = course.getPrerequisiteIds();
             courseResponse.setPrerequisiteCourseIds(prerequisiteCourseIds);
             return courseResponse;
         }).collect(Collectors.toList());
         return courseResponses;
+    }
+
+
+    public Boolean checkDuplicatedCourseInEnrollment(String courseId, String studentId, String semester){
+        List<EnrollmentResponse> enrollmentResponseList = getEnrollmentsByStudentIdAndSemester(studentId, semester);
+        for (EnrollmentResponse enrollmentResponse: enrollmentResponseList) {
+            log.info("Course Id: "+ enrollmentResponse.getCourseId());
+            if(enrollmentResponse.getCourseId().equals(courseId)){
+                log.info("Course Id: "+ enrollmentResponse.getCourseId());
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+
+    public List<EnrollmentResponse> getEnrollmentsByStudentIdAndSemester(String studentId, String semester) {
+        String baseUrl = "http://ENROLLMENTSERVICE/enrollment/search";
+        String uri = UriComponentsBuilder.fromHttpUrl(baseUrl)
+                .queryParam("studentId", studentId)
+                .queryParam("semester", semester)
+                .toUriString();
+        EnrollmentResponse[] enrollmentResponses = loadBalancedWebClientBuilder.build()
+                .get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(EnrollmentResponse[].class)
+                .block();
+
+        log.info("enrollmentResponses:" + Arrays.toString(enrollmentResponses));  // Log array
+
+        if (enrollmentResponses != null) {
+            List<EnrollmentResponse> enrollmentResponseList = Arrays.stream(enrollmentResponses)
+                    .collect(Collectors.toList());
+            log.info("enrollmentResponseList:" + enrollmentResponseList);  // Log danh sách chuyển đổi từ array
+            return enrollmentResponseList;
+        } else {
+            return List.of();  // Trả về danh sách rỗng nếu phản hồi là null
+        }
     }
 
 }

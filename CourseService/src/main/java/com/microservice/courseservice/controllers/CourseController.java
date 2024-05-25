@@ -40,4 +40,13 @@ public class CourseController {
             @RequestParam String faculty) {
         return courseService.getCoursesBySemesterAndFaculty(semester, faculty);
     }
+
+    @GetMapping("/check-duplicated-course-enrollment")
+    @ResponseStatus(HttpStatus.OK)
+    public Boolean checkDuplicatedCourseInEnrollment(
+            @RequestParam String courseId,
+            @RequestParam String studentId,
+            @RequestParam String semester) {
+        return courseService.checkDuplicatedCourseInEnrollment(courseId, studentId, semester);
+    }
 }

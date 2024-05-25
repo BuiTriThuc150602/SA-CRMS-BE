@@ -1,8 +1,8 @@
-package com.microservice.enrollmentservice.dtos;
+package com.microservice.courseservice.dtos;
 
-import com.microservice.enrollmentservice.enums.CollectionStatus;
-import com.microservice.enrollmentservice.enums.EnrollmentStatus;
-import com.microservice.enrollmentservice.enums.StatusEnrollClass;
+import com.microservice.courseservice.enums.CollectionStatus;
+import com.microservice.courseservice.enums.EnrollmentStatus;
+import com.microservice.courseservice.enums.StatusEnrollClass;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,7 +1,10 @@
-package com.microservice.classservice.dtos;
+package com.microservice.courseservice.dtos;
 
-import com.microservice.classservice.enums.StatusEnrollClass;
-import lombok.*;
+import com.microservice.courseservice.enums.StatusEnrollClass;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter

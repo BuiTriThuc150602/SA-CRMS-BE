@@ -57,7 +57,7 @@ const StudentPage = () => {
             </h1>
           </div>
         </div>
-        <div className="absolute flex justify-between items-center right-8">
+        <div className="absolute flex justify-between items-center right-[150px]">
           <img
             src={studentInfo.avatar}
             alt="avatar"
@@ -158,10 +158,10 @@ const StudentPage = () => {
                     </div>
                     <div className="flex mt-3">
                       <p className="mr-3  text-xl font-semibold">
-                        Hình Thức Học:
+                        Loại Hình Đào Tạo:
                       </p>
                       <div className="text-xl text-gray-700 font-semibold">
-                        {studentInfo.studentType}
+                        {studentInfo.studentGraduationType}
                       </div>
                     </div>
                     <div className="flex mt-3">

@@ -115,7 +115,7 @@ export default function Calendar() {
             </h1>
           </div>
         </div>
-        <div className="absolute flex justify-between items-center right-8">
+        <div className="absolute flex justify-between items-center right-[100px]">
           <img
             src={student.avatar}
             alt="avatar"
@@ -163,7 +163,7 @@ export default function Calendar() {
                       className="border border-gray-400 p-10 bg-blue-100"
                     >
                       {loadingSchedule ? (
-                        <div>Loading ...</div>
+                        <span className="loading loading-spinner"></span>
                       ) : (
                         renderScheduleDetails(slot, day)
                       )}

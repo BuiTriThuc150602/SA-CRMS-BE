@@ -37,8 +37,9 @@ public class CourseController {
     @ResponseStatus(HttpStatus.OK)
     public List<CourseResponse> getCoursesBySemesterAndFaculty(
             @RequestParam String semester,
-            @RequestParam String faculty) {
-        return courseService.getCoursesBySemesterAndFaculty(semester, faculty);
+            @RequestParam String faculty,
+            @RequestParam String studentId) {
+        return courseService.getCoursesBySemesterAndFaculty(semester, faculty, studentId);
     }
 
     @GetMapping("/check-duplicated-course-enrollment")

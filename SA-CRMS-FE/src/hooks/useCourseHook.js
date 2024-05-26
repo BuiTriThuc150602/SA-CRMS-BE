@@ -6,11 +6,11 @@ const useCourseHook = () => {
     const [courses, setCourses] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const getCourses = async (semester, faculty) => {
+    const getCourses = async (semester, faculty, studentId) => {
         setLoading(true);
         try {
             const response = await axiosInstance.get("/course/search", {
-                params: { semester, faculty }
+                params: { semester, faculty , studentId}
             });
             const data = response.data;
             if (response.status === 200) {

@@ -180,6 +180,7 @@ services:
       - discovery-server
       - api_gateway
       - kafka
+      - AuthenticateService
     networks:
       - gateway
       - kafka-network
@@ -227,6 +228,7 @@ services:
       - config-server
       - discovery-server
       - api_gateway
+      - StudentService
     networks:
       - gateway
 
@@ -250,6 +252,8 @@ services:
       - config-server
       - discovery-server
       - api_gateway
+      - StudentService
+      - CourseService
     networks:
       - gateway
 
@@ -273,6 +277,7 @@ services:
       - config-server
       - discovery-server
       - api_gateway
+      - StudentService
     networks:
       - gateway
 
@@ -296,6 +301,7 @@ services:
       - config-server
       - discovery-server
       - api_gateway
+      - StudentService
     networks:
       - gateway
 
@@ -319,6 +325,7 @@ services:
       - config-server
       - discovery-server
       - api_gateway
+      - StudentService
     networks:
       - gateway
 

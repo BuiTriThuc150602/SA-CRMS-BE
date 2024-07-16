@@ -2,6 +2,7 @@ package vn.edu.iuh.fit.apigateway.exceptions;
 
 import java.nio.file.AccessDeniedException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.web.reactive.error.AbstractErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.cloud.gateway.support.TimeoutException;
 import org.springframework.http.ResponseEntity;

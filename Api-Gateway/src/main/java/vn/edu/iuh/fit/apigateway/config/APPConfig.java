@@ -25,7 +25,6 @@ public class APPConfig {
 
   @Bean
   public AuthenticateClient authenticateClient(WebClient webClient) {
-    log.info("Create AuthenticateClient");
     HttpServiceProxyFactory httpServiceProxyFactory = HttpServiceProxyFactory
         .builderFor(WebClientAdapter.create(webClient)).build();
     return httpServiceProxyFactory.createClient(AuthenticateClient.class);

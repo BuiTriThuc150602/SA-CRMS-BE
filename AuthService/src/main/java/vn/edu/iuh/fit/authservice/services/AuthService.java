@@ -1,6 +1,7 @@
 package vn.edu.iuh.fit.authservice.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,29 @@ public class AuthService {
     UserCredential userCredential = userCredentialRepository.findById(userId)
         .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
     return jwtService.generateToken(userCredential);
+  }
+
+  /*
+  function : Change password of user
+  params : userId, oldPassword,newPassword
+  return : boolean
+  */
+  public boolean changePassword(String userId, String oldPassword, String newPassword) {
+    Optional<UserCredential> userCredential = userCredentialRepository.findById(userId);
+    if (userCredential.isEmpty()) {
+      log.error("User not found");
+      return false;
+    } else {
+      if (!passwordEncoder.matches(oldPassword, userCredential.get().getPassword())) {
+        log.error("Old password is not correct");
+        return false;
+      }
+      userCredential.get().setPassword(passwordEncoder.encode(newPassword));
+      userCredentialRepository.save(userCredential.get());
+      return true;
+
+    }
+
   }
 
 

@@ -32,9 +32,6 @@ public class JWTService {
 
   @Value("${jwt.secret}")
   private String SECRET;
-
-
-  //  private static final String SECRET = "6a6176612d6172636869746563747572652d6d6963726f7365727669636573";
   private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 24;
 
 

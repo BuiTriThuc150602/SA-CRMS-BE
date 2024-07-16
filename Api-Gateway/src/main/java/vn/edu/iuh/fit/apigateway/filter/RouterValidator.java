@@ -11,9 +11,10 @@ import java.util.function.Predicate;
 public class RouterValidator {
 
   public static final List<Pattern> openApiEndpoints = List.of(
-          Pattern.compile("/api/v1/auth/login"),
-          Pattern.compile("/api/v1/students/register-student"),
-          Pattern.compile("/eureka")
+      Pattern.compile("/api/v1/auth/login"),
+      Pattern.compile("/api/v1/auth/change-password"),
+      Pattern.compile("/api/v1/students/register-student"),
+      Pattern.compile("/eureka")
   );
 
   public static final List<Pattern> internalApiEndpoints = List.of(

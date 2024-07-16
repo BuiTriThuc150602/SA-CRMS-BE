@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.iuh.fit.authservice.dto.requests.AuthRegisterRequest;
 import vn.edu.iuh.fit.authservice.dto.requests.AuthRequestMapping;
+import vn.edu.iuh.fit.authservice.dto.requests.ChangePasswordRequest;
 import vn.edu.iuh.fit.authservice.dto.requests.RoleRequest;
 import vn.edu.iuh.fit.authservice.dto.responses.ApiResponse;
 import vn.edu.iuh.fit.authservice.dto.responses.AuthenticationResponse;
@@ -46,27 +47,19 @@ public class AuthController {
   private JWTService jwtService;
 
   @PostMapping("/login")
-  public ApiResponse<?> getToken(@RequestBody AuthRequestMapping authRequest) {
+  public ApiResponse<AuthenticationResponse> getToken(@RequestBody AuthRequestMapping authRequest) {
     try {
-      Authentication authenticate = authenticationManager.authenticate(
+      authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(authRequest.getId(),
               authRequest.getPassword()));
-      if (authenticate.isAuthenticated()) {
-        String token = authService.generateToken(authRequest.getId());
-        return ApiResponse.<AuthenticationResponse>builder()
-            .result(new AuthenticationResponse(token, true))
-            .build();
+      String token = authService.generateToken(authRequest.getId());
+      return ApiResponse.<AuthenticationResponse>builder()
+          .result(new AuthenticationResponse(token, true))
+          .build();
 
-      } else {
-        return ApiResponse.<AppException>builder()
-            .result(new AppException(ErrorCode.UNAUTHENTICATED))
-            .build();
-      }
     } catch (AuthenticationException aue) {
       log.error("Error when authenticate: {}", aue.getMessage());
-      return ApiResponse.<AppException>builder()
-          .result(new AppException(ErrorCode.UNAUTHENTICATED))
-          .build();
+      throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
   }
 
@@ -132,6 +125,24 @@ public class AuthController {
       log.error("Error when get claims: {}", ex.getMessage());
       throw new AppException(ErrorCode.UNAUTHENTICATED);
     }
+  }
+
+  @PostMapping("/change-password")
+  public ApiResponse<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest) {
+    var result = authService.changePassword(
+        changePasswordRequest.getId(),
+        changePasswordRequest.getOldPassword(),
+        changePasswordRequest.getNewPassword()
+    );
+
+    if (result) {
+      return ApiResponse.<String>builder()
+          .result("Password changed")
+          .build();
+    } else {
+      throw new AppException(ErrorCode.INVALID_OLD_PASSWORD);
+    }
+
   }
 }
 

@@ -1,0 +1,404 @@
+[33mcommit ddb7d7580400dc4ea70f694b4f71ad252dbabfad[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Sun Jul 21 02:42:40 2024 +0700
+
+    change password to connect database
+
+[33mcommit 499ce3884bb162523759fd9b33a24b417236ed5a[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Fri Jul 12 00:30:28 2024 +0700
+
+    change password to use local database
+
+[33mcommit 0318ea4ded6bf019a523b0d397c9c706cc2c9d7d[m
+Merge: 0887088 332c232
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Fri Jul 12 00:24:34 2024 +0700
+
+    Merge branch 'main' of https://github.com/TriThuc1506/SA-CRMS-ConfigServer
+
+[33mcommit 0887088ecf7904bfe42567f757704e525b55aa32[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Fri Jul 12 00:22:39 2024 +0700
+
+    change to use local database
+
+[33mcommit 332c232813b9c3496a32d7e50ef1d401af8b4880[m
+Author: NguyenVanLoc2002 <nguyenvanloc6756@gmail.com>
+Date:   Fri May 17 17:14:51 2024 +0700
+
+    update prod schedule
+
+[33mcommit b764011d62d20e633c2074962e14d405cb2de78f[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Thu May 16 17:17:41 2024 +0700
+
+    config CORS gate-way
+
+[33mcommit 835e9d21d26d2f885b43e14731500463f3d78dc1[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Thu May 16 17:13:48 2024 +0700
+
+    config CORS gate-way
+
+[33mcommit 659e17c1625a75b58020655ae4286348c66ccb21[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Thu May 16 17:00:27 2024 +0700
+
+    config CORS gate-way
+
+[33mcommit a129a109f40ac6aed0e27a7efbe13e18e045bbe3[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Thu May 16 16:57:55 2024 +0700
+
+    config CORS gate-way
+
+[33mcommit c830d22fa7c73b39fe8644bda94ae9a6251c8a2c[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Thu May 16 04:20:32 2024 +0700
+
+    Add Kafka config for Authentication Service and Student Service
+
+[33mcommit f1e6349443a6f2dbf7dc5d9d09db0193fece788f[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Tue May 14 00:52:07 2024 +0700
+
+    limit max connection to database, initialize only 1 connect every service star
+
+[33mcommit e3581b0d418ae40d85f574ec7655cb8967bf26d3[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 13 23:47:55 2024 +0700
+
+    change dev profile config to localhost
+
+[33mcommit 3b966e4931be7187fd3b5905a9414faf265cb9ef[m
+Author: NguyenVanLoc2002 <nguyenvanloc6756@gmail.com>
+Date:   Fri May 10 22:02:08 2024 +0700
+
+    update config
+
+[33mcommit eb40c68eef08b833c4af31fcaf37d8f592b063cd[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Tue May 7 21:50:50 2024 +0700
+
+    change to use cloud RDS AWS
+
+[33mcommit 55e1d3ba0aa6c9ebda1cc13f9a3a762077514665[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Tue May 7 20:48:39 2024 +0700
+
+    change db cloud
+
+[33mcommit 8e8b47b81f55667a615a46296eb6f8287b74614e[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Tue May 7 18:37:18 2024 +0700
+
+    Add config service : ClassService, CourseService, EnrollmentService, LearningResultService, ScheduleService
+
+[33mcommit 2dfb5f59fdd2105143989a8356163fb7e3213add[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Tue May 7 17:50:52 2024 +0700
+
+    Add config service : ClassService, CourseService, EnrollmentService, LearningResultService, ScheduleService
+
+[33mcommit 364b274013ae6d0384e72659974eaef2e8e9c222[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 6 22:25:10 2024 +0700
+
+    change port of Authenticate & Course Service
+
+[33mcommit e0ed2ff20c9ab53f3178f1f5990b018903c5c4f8[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 6 22:09:31 2024 +0700
+
+    fix bug on api gateway config filter
+
+[33mcommit 5a8c383c3fd3ca27f7daa70dead0fbde3c1aadd3[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 6 22:05:59 2024 +0700
+
+    fix bug on api gateway config filter
+
+[33mcommit 22e50ffd0af442080d93366ab333bf0b01589cb0[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 6 21:27:17 2024 +0700
+
+    Add config service : ClassService, CourseService, EnrollmentService, LearningResultService, ScheduleService
+
+[33mcommit 7bea7169c7707baea8e7d3e06e54bc5668e074fc[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Mon May 6 19:17:05 2024 +0700
+
+    Add config service : ClassService, CourseService, EnrollmentService, LearningResultService, ScheduleService
+
+[33mcommit 18365c87c4358d2985170ba3d22c733d51e59708[m
+Author: TriThuc1506 <trithucbuittb@gmail.com>
+Date:   Fri May 3 01:30:10 2024 +0700
+
+    edit discovery config
+
+[33mcommit 2e4717658441904f3287d48e97fec8d3e4687a98[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu May 2 17:25:14 2024 +0700
+
+    add router gateway to Graduation and Schedule
+
+[33mcommit 6d78ee22494ce4d097fc783e5108fc6998ee63e0[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 21:10:15 2024 +0700
+
+    add filter gateway
+
+[33mcommit 71e82245551724afc755c7d2933691be4f4f8f9f[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 20:32:58 2024 +0700
+
+    add filter gateway
+
+[33mcommit a4b16c51980100162d97f69e6b99f655019bde88[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 03:04:36 2024 +0700
+
+    add filter gateway
+
+[33mcommit 4b2b9da96df7c8eae9f506b5a5a4fe315ec06a12[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 02:40:21 2024 +0700
+
+    add filter gateway
+
+[33mcommit 5aac0e8c4a58876cdcad61af59de680e68c36b0a[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 02:35:35 2024 +0700
+
+    add filter gateway
+
+[33mcommit 0426cf7cb1264164dc46dad1c5c1900afc2e4230[m
+Merge: c533250 bc24902
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 02:32:03 2024 +0700
+
+    Merge branch 'main' of https://github.com/TriThuc1506/SA-CRMS-ConfigServer
+
+[33mcommit c533250e252b8efb20170a88e07a0633a81ab234[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Tue Apr 30 02:31:49 2024 +0700
+
+    change zipkin endpoint
+
+[33mcommit bc249027e66c37dfdbe316b73aa9f5488e8398d2[m
+Author: TriThuc1506 <125669322+TriThuc1506@users.noreply.github.com>
+Date:   Mon Apr 29 21:19:15 2024 +0700
+
+    Update AuthenticateService-dev.properties
+
+[33mcommit 41eaee25fb961f400454380b3f60960a666e6e07[m
+Author: TriThuc1506 <125669322+TriThuc1506@users.noreply.github.com>
+Date:   Mon Apr 29 21:16:44 2024 +0700
+
+    Update AuthenticateService-dev.properties
+
+[33mcommit 2b0c3f7f272d72047d97ba12cebbc23eeb13c971[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 03:46:19 2024 +0700
+
+    change zipkin endpoint
+
+[33mcommit 736dc03c41908b13c09e2c0b361774cffd40a10e[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 02:45:35 2024 +0700
+
+    change zipkin endpoint
+
+[33mcommit 534ca9b9da3d165b9f4d848707293894a349125b[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 02:22:03 2024 +0700
+
+    rename authservice config
+
+[33mcommit f28b932ead4a4d5ab1b0ad6e681777324c5b4598[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 02:18:10 2024 +0700
+
+    rename authservice config
+
+[33mcommit 75dba10ab8a98593ccce83bf2d2c4a735be226c7[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 02:10:25 2024 +0700
+
+    rename authservice config
+
+[33mcommit 8470a5058a36edd30237fa120c387fff649c180c[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Mon Apr 29 01:45:16 2024 +0700
+
+    rename authservice config
+
+[33mcommit 9653c0d64ff2ccbd1b565ad6d17f5dff186085e1[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sun Apr 28 02:25:27 2024 +0700
+
+    add  authservice config
+
+[33mcommit c0ffcb6f784c6f9eab267059e18cbf8f889e8cc5[m
+Merge: b760e7f 10537fb
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 18:18:17 2024 +0700
+
+    Merge branch 'main' of https://github.com/TriThuc1506/SA-CRMS-ConfigServer
+
+[33mcommit b760e7f97d13fccc8dab7e852798c1f1dfae8c81[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 18:18:05 2024 +0700
+
+    add  authservice config
+
+[33mcommit 10537fba2b7e06767a69ea87d1fee784d28e30c1[m
+Author: TriThuc1506 <125669322+TriThuc1506@users.noreply.github.com>
+Date:   Sat Apr 27 17:36:02 2024 +0700
+
+    Update AuthService.properties
+
+[33mcommit 8f0e7fd80f2ccbf6abdda937e635ec3929344d09[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 16:57:16 2024 +0700
+
+    add  authservice config
+
+[33mcommit 07dc755111ce4243e3eaf83c064d4b431fb2a02d[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 16:26:38 2024 +0700
+
+    update api-gateway for authservice
+
+[33mcommit 9f12c2837fdce5ee1968044698b3c2cd5c4afc2c[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 15:50:58 2024 +0700
+
+    update api-gateway for authservice
+
+[33mcommit 3b0857eac4d2bc0135e1e175df3b61f4640f986c[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Sat Apr 27 15:49:02 2024 +0700
+
+    update api-gateway for authservice
+
+[33mcommit 56dfcc437229e0b971ee9a5fb9b3544437f830b2[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 03:38:20 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 1e9498e95c78ed09d7f05791062468d21fb4a6ca[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 03:17:45 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 56e3aa91686d92634a190400bd1a127c815d0c80[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 03:05:56 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit cfc37f68bb41e6229c1bf1120dced10b324cafc5[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 03:02:24 2024 +0700
+
+    Add zipkin config
+
+[33mcommit 8ac9a78185d435f7538d9e633441808999bb2a29[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 02:40:50 2024 +0700
+
+    Add zipkin config
+
+[33mcommit 601c287578535740167aaacf83b47c62a4bf58f0[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 02:27:20 2024 +0700
+
+    Add zipkin config
+
+[33mcommit a172ec5fd9e6654e32d3904ff07041d7198ace72[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 02:13:02 2024 +0700
+
+    Add zipkin config
+
+[33mcommit d00d56c3ef7012c39bfd8bcd17d805d7a5168a03[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 01:37:35 2024 +0700
+
+    Add zipkin config
+
+[33mcommit 3d537f5e051cea68351e06a4ff115c492e29c9d0[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 01:11:56 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 83eab589e5d614c53f0d12bc81237361ac48dbd1[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Thu Apr 25 00:57:42 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 5707df81002f8151a58788b91b924dc83692b691[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 20:21:58 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 283685af1b494dd1b761275df7c3dba61168fae1[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 04:16:28 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit a52953ff9447ab86c1803f2a1d40b6c5db8ab291[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 04:08:37 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 1e7e8c6f42c9608a44ea4b7e34e01bf869231a03[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 04:04:18 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit d0775c4df0aed83e18d8b41d41952b9fa6860302[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 03:51:51 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 5da3106b9b4b3f5ecf844612578da76b32c711d0[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 03:29:28 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit acf82ec3ea199a932d7e04fca211abae10db53fc[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 03:26:57 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 77b8afb23c843a96fce2e2a1cd63fb4e6a492a31[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 03:05:32 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit 8de73613a281fe8c62328be4ed2106e3f27d798c[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 02:55:37 2024 +0700
+
+    Add api-gateway config
+
+[33mcommit ddf6e563326d8229960df9229c87f51818a32f83[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Bùi Trí Thức <20088361.thuc@student.iuh.edu.vn>
+Date:   Wed Apr 24 01:53:21 2024 +0700
+
+    initial base config

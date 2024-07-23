@@ -1,7 +1,6 @@
 package vn.edu.iuh.fit.apigateway.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -17,13 +16,14 @@ import java.net.URI;
 import java.util.function.Predicate;
 
 @Component
+@Slf4j
 public class AuthenticateFilter extends AbstractGatewayFilterFactory<AuthenticateFilter.Config> {
 
     @Autowired
     private RouterValidator routerValidator;
     @Autowired
     private AuthenticateService authenticateService;
-    private final Logger log = LoggerFactory.getLogger(AuthenticateFilter.class);
+
 
     public AuthenticateFilter() {
         super(Config.class);
@@ -33,8 +33,12 @@ public class AuthenticateFilter extends AbstractGatewayFilterFactory<Authenticat
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             if (!routerValidator.isSecured.test(exchange.getRequest())) {
+              log.info("Open Endpoint");
+              log.info("Request to : {}", exchange.getRequest().getURI().getPath());
                 return chain.filter(exchange);
             } else if (routerValidator.isInternal.test(exchange.getRequest())) {
+                log.info("Internal Endpoint");
+              log.info("Request to : {}", exchange.getRequest().getURI().getPath());
                 return Mono.error(new AppException(ErrorCode.UNAUTHORIZED));
             }
             URI uri = exchange.getRequest().getURI();

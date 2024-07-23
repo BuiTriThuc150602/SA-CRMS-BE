@@ -96,6 +96,16 @@
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="LOCAL" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/NotificationService" />
+        <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/NotificationService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/ScheduleService" />
         <option name="gradleHome" value="$PROJECT_DIR$/../../../Java/gradle-8.3" />
         <option name="modules">

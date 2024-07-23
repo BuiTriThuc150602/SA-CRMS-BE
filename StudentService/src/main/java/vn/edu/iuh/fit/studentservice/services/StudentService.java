@@ -32,6 +32,9 @@ public class StudentService {
     if (student == null) {
       throw new AppException(ErrorCode.INVALID_REQUEST);
     }
+    if (studentRepository.existsById(student.getId())) {
+      throw new AppException(ErrorCode.USER_EXISTED);
+    }
 
     Student newStudent = new Student();
 
@@ -106,7 +109,6 @@ public class StudentService {
         result.getId(),
         result.getName(),
         result.getEmail(),
-        result.getId(),
         Set.of("student")
     );
     streamBridge.send("output-out-0", newUser);

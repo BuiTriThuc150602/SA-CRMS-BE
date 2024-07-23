@@ -19,6 +19,7 @@ public enum ErrorCode {
     INVALID_DOB(2010, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     INVALID_REQUEST(2011, "Request not match any thing, please check it", HttpStatus.NOT_FOUND),
     INVALID_OLD_PASSWORD(2012, "invalid old password", HttpStatus.BAD_REQUEST),
+    CANNOT_CREATE_USER(2013, "Cannot create user", HttpStatus.BAD_REQUEST),
     ;
     private final int code;
     private final String message;

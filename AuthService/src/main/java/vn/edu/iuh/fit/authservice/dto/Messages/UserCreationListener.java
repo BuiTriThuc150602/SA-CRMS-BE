@@ -23,7 +23,7 @@ public class UserCreationListener {
       account.setId(message.getId());
       account.setName(message.getName());
       account.setEmail(message.getEmail());
-      account.setPassword(message.getPassword());
+      account.setPassword(message.getId());
       account.setRoles(message.getRoles());
       authService.createUser(account);
     };

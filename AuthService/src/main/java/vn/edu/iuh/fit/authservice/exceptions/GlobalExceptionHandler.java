@@ -11,30 +11,30 @@ import vn.edu.iuh.fit.authservice.enums.ErrorCode;
 @ControllerAdvice
 @Slf4j
 public class GlobalExceptionHandler {
+
   @ExceptionHandler(value = Exception.class)
-  ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception) {
+  ResponseEntity<ApiResponse<?>> handlingRuntimeException(RuntimeException exception) {
     log.error("Exception: ", exception);
-    ApiResponse apiResponse = new ApiResponse();
 
-    apiResponse.setCode(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode());
-    apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage());
-
-    return ResponseEntity.badRequest().body(apiResponse);
+    return ResponseEntity.badRequest().body(ApiResponse.builder()
+        .code(ErrorCode.UNCATEGORIZED_EXCEPTION.getCode())
+        .message(ErrorCode.UNCATEGORIZED_EXCEPTION.getMessage())
+        .build());
   }
 
   @ExceptionHandler(value = AppException.class)
-  ResponseEntity<ApiResponse> handlingAppException(AppException exception) {
+  ResponseEntity<ApiResponse<?>> handlingAppException(AppException exception) {
     ErrorCode errorCode = exception.getErrorCode();
-    ApiResponse apiResponse = new ApiResponse();
-
-    apiResponse.setCode(errorCode.getCode());
-    apiResponse.setMessage(errorCode.getMessage());
-
-    return ResponseEntity.status(errorCode.getStatusCode()).body(apiResponse);
+    log.error("AppException: {}", exception.getMessage());
+    return ResponseEntity.status(errorCode.getStatusCode())
+        .body(ApiResponse.builder()
+            .code(errorCode.getCode())
+            .message(errorCode.getMessage())
+            .build());
   }
 
   @ExceptionHandler(value = AccessDeniedException.class)
-  ResponseEntity<ApiResponse> handlingAccessDeniedException(AccessDeniedException exception) {
+  ResponseEntity<ApiResponse<?>> handlingAccessDeniedException(AccessDeniedException exception) {
     ErrorCode errorCode = ErrorCode.UNAUTHORIZED;
 
     return ResponseEntity.status(errorCode.getStatusCode())
@@ -45,16 +45,15 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(value = IllegalStateException.class)
-  ResponseEntity<ApiResponse> handlingIllegalStateException(IllegalStateException exception) {
+  ResponseEntity<ApiResponse<?>> handlingIllegalStateException(IllegalStateException exception) {
     ErrorCode errorCode = ErrorCode.INVALID_REQUEST;
-    log.error("IllegalStateException: ", exception.getMessage());
+    log.error("IllegalStateException: {}", exception.getMessage());
     return ResponseEntity.status(errorCode.getStatusCode())
         .body(ApiResponse.builder()
             .code(errorCode.getCode())
             .message(errorCode.getMessage())
             .build());
   }
-
 
 
 }

@@ -54,7 +54,7 @@ public class AuthConfig {
         )
         .authorizeHttpRequests(
             authorizeRequests -> authorizeRequests
-                .requestMatchers("/auth/login", "/auth/get-claims")
+                .requestMatchers("/auth/login", "/auth/get-claims", "/v3/**", "/swagger-ui/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
